@@ -18,6 +18,13 @@ npx skills add sharqiewicz/skills/react/react-useeffect
 npx skills add sharqiewicz/skills/react/react-state-management
 ```
 
+**React Doctor** https://www.react.doctor/
+```
+npx react-doctor@latest
+```
+
+---
+
 #### Vercel skills
 
 ```
@@ -65,6 +72,16 @@ npx skills add pbakaus/impeccable
 ```
 
 **Emil Kowalski** — design engineering principles (private skill.md file)
+
+**review-animations** https://emilkowal.ski/skill
+```
+npx skills add emilkowalski/skill
+```
+
+**shadcn** https://ui.shadcn.com/docs/skills
+```
+npx skills add shadcn/ui
+```
 
 **motion** - in progress
 
@@ -124,3 +141,16 @@ npx skills add mattpocock/skills/grill-me
 npx skills add sharqiewicz/skills/skill
 ```
 
+**Teach** https://github.com/mattpocock/skills/tree/main/skills/productivity/teach
+```
+npx skills add mattpocock/skills/teach
+```
+
+**project-manager**
+```
+npx skills add sharqiewicz/skills/project-manager
+```
+
+## Matt Pocock Skill Flow Guidelines
+
+![Skill Flow Guidelines](./image.png)

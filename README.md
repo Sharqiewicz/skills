@@ -9,13 +9,13 @@ A collection of agent skills that extend capabilities across planning, developme
 **React useEffect** — guidance on when to use `useEffect` and how to replace it with correct React patterns:
 
 ```
-npx skills add sharqiewicz/skills/react/react-useeffect
+npx skills add sharqiewicz/skills/react/use-effect
 ```
 
 **React state management** — expert guidance for Zustand, React Query, React Context, and XState:
 
 ```
-npx skills add sharqiewicz/skills/react/react-state-management
+npx skills add sharqiewicz/skills/react/state-management
 ```
 
 **React Doctor** https://www.react.doctor/
@@ -76,6 +76,11 @@ npx skills add pbakaus/impeccable
 **review-animations** https://emilkowal.ski/skill
 ```
 npx skills add emilkowalski/skill
+```
+
+**vocabulary** - https://index.how/to/articulate
+```
+npx skills add index-how/vocabulary
 ```
 
 **shadcn** https://ui.shadcn.com/docs/skills

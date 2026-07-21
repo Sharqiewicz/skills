@@ -44,6 +44,12 @@ The flows and behaviors. Strongest 1:1 web mappings in the whole skill: **loadin
 - **Brief and skippable**; if skipped, don't force it again but keep it findable (help/settings). Scope it to your app's own features, not generic platform behavior.
 - **Ship good defaults** — postpone nonessential setup. Tie any sensitive permission request to the moment the feature is used (with the "why"). Let people experience value before any rating/upgrade prompt. Don't let large downloads block first use.
 
+## Offering help
+
+- **Match help depth to task complexity** — a one-line inline hint for a 1–2 step task, a fuller tutorial only for genuinely complex flows. Don't explain standard/familiar UI — only what's unique to your app.
+- **Keep it contextual, short, and dismissible** — tips 1–2 sentences, no promo. Tooltips: describe the one control, **lead with a verb, don't repeat the control's label, ~60–75 chars**.
+- **Gate by eligibility and throttle frequency** — don't show a "new feature" tip to people already using it; don't stack multiple tips in one session. Product tours (Shepherd/driver.js) sparingly and always skippable.
+
 ## Settings
 
 - **Best defaults for most people** — minimize both the number of settings and the need to touch them.
@@ -60,6 +66,12 @@ The flows and behaviors. Strongest 1:1 web mappings in the whole skill: **loadin
 - Standard `Cmd/Ctrl+Z` / `Cmd/Ctrl+Shift+Z`; **multi-step** history, no arbitrary depth limit (command pattern / state history).
 - **Label the specific action** ("Undo Delete Row", toast "Undid: deleted row" + Undo button). **Show the result even if off-screen** — scroll/highlight the affected element.
 
+## File management
+
+- **Autosave by default** — avoid requiring an explicit Save; debounce to backend / IndexedDB / localStorage with a synced "Saving…"/"Saved"/"Unsaved changes" indicator (Notion/Docs pattern).
+- If autosave is off, show a clear **unsaved-changes indicator** (dot on the close control, asterisk in the title) and confirm before discarding.
+- Provide **inline preview** even for unknown/unsupported types (iframe/PDF.js/image) rather than forcing a download-and-open cycle. Hide technical details (file extensions) by default but let people reveal them. Obvious create/open affordances; support rename/move/sort/search if you build a file browser.
+
 ## Drag & drop
 
 - **Always provide a non-drag alternative** (menu/button/keyboard) — never the only path. Keyboard reordering + `aria-grabbed`.
@@ -72,6 +84,7 @@ The flows and behaviors. Strongest 1:1 web mappings in the whole skill: **loadin
 ## Notifications (managing)
 
 - **Explicit opt-in before sending** — never on first load; request contextually after a relevant action. Represent urgency honestly; never use the most-interrupting channel for marketing. **Separate opt-in for promotional vs. transactional.** Provide per-category preference toggles in-app; easy to mute/revoke.
+- **Content/authoring:** concise, factual, non-repetitive — never fire multiple notifications for the same unresolved event. Offer real inline **action buttons (≤~4)** instead of instructive text people won't remember. **Never put sensitive/private content in the body** (lock-screen/preview visibility is outside your control) — provide short, non-revealing **fallback preview text** ("New comment", "Friend request"). **Suppress when the app is already foregrounded/focused** — update the badge or insert the content into the visible view instead. **Use an alert, not a notification, for errors** — notifications are glanceable updates, not blocking problems. Title-case, unambiguous action labels; avoid unconfirmed destructive actions.
 
 ## Going full screen / launching / multitasking (brief)
 

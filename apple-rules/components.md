@@ -126,12 +126,44 @@ Per-component spec, each mapped to its web/ARIA equivalent, with when-to-use / w
 ## Search fields — `<input type="search">` + filter chips
 
 - **Search as the user types**, not only on submit. Placeholder describes what's searchable; offer recent/suggested terms. **Scope bar** = filter tabs; **tokens** = filter chips (pair with suggestions so they're discoverable). Default to the broadest scope and let people narrow.
+- **Token fields** (multi-value/tag input — recipient/tag chips): free text converts to discrete editable chips (comma and/or Enter to commit); a per-token menu for edit/remove; tune the autocomplete delay so it doesn't distract mid-typing.
 
 ## Progress indicators — `<progress>` / spinner / skeleton
 
 - **Determinate whenever duration is knowable** (lets people decide to wait/multitask/cancel); indeterminate only when it isn't. Switch indeterminate→determinate when duration becomes known, but **never switch shape** mid-flow.
 - Keep the pace honest (don't crawl the last 10%) and **always moving** (a stationary bar reads as frozen). Avoid vague "Loading…" copy. Offer Cancel/Pause when interrupting is safe; confirm when it isn't.
 - A11y: `role="progressbar"` + `aria-valuenow/min/max`, or `aria-busy` for indeterminate; announce completion via a live region.
+
+## Split views — multi-pane resizable layout (email/file-manager/inspector)
+
+- 2–3 adjacent panes (sidebar + list + detail). **Persistently highlight the current selection** in each pane leading to the detail, to keep people oriented.
+- Sensible **min/max pane sizes** so a divider never becomes too thin to grab; keyboard-operable dividers (arrow keys once focused).
+- **Never hide a pane by default**; give multiple discoverable ways to reveal it (toolbar button + shortcut). On narrow/compact viewports, collapse side-by-side panes to a single-pane push/pop navigation.
+
+## Scroll views — native/custom scroll container
+
+- **Never nest two scroll regions on the same axis** (vertical-in-vertical / horizontal-in-horizontal); perpendicular nesting (horizontal inside vertical) is fine.
+- Make scrollability visually obvious (peeking/partial content at the edge), not just a scrollbar. Keep momentum/rubber-band consistent with system norms if you customize.
+- **Scroll edge effect**, not a hard divider: the fixed header gains a blur/shadow only after content scrolls behind it.
+
+## Charts — chart library (D3/Recharts/Observable Plot)
+
+- **Mark types:** bar (compare categories / parts-of-whole / sums), line (trend over time), point/scatter (individual values, outliers) — combine when it clarifies.
+- **Axis honesty (explicit anti-dogma):** zero-base the axis when the baseline is meaningful (bar charts, 0–100%); a **non-zero** lower bound is *better* when it would otherwise compress meaningful differences (e.g. heart rate). Choose deliberately.
+- **Round, familiar tick intervals** (0, 5, 10…) over arbitrary ones so people can extrapolate the scale at a glance. Fixed range when bounds are meaningful for all data; dynamic when values vary widely.
+- **Never distinguish series by color alone** — add shape/pattern/direct labels. Chart only when it highlights something; offer a table for raw browsing.
+- **Accessibility is load-bearing:** a title/subtitle stating the takeaway, plus a text summary and/or a data-table alternative; per-mark or per-group accessible labels; `role="img"` + `aria-label` or an off-screen `<table>`. Avoid subjective terms ("rapidly") and ambiguous formats ("6/6" → "June 6").
+
+## Page controls — paged-content position indicator (dots)
+
+- Shows position within a small set of peer pages (carousels, paged onboarding). **Keep the count small and legible** — many dots become unreadable; switch to a "3 of 12" label or a scrollbar for large sets.
+- **Pair with swipe + keyboard** (arrow keys) — dots indicate, they aren't the only way to move. Don't use for unrelated navigation between top-level sections (that's a tab bar).
+- A11y: expose current position (`aria-current` on the active dot, or a `role="tablist"`), and an off-screen "Page N of M" label.
+
+## Rating indicators — star display (distinct from the Ratings & Reviews pattern)
+
+- Displays a rating along a fixed scale (stars). **Read-only vs. interactive** are different modes — style and label them distinctly; support **partial fill** for fractional averages.
+- Keep the scale and icon consistent wherever the rating appears. A11y: expose the value as text ("4.3 out of 5"), not stars alone; interactive ratings need `role="radiogroup"`/slider semantics + keyboard.
 
 ## Boxes / gauges / image views (brief)
 

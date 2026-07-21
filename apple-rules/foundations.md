@@ -13,6 +13,7 @@ The visual and structural bedrock: color, dark mode, materials, typography, layo
 - **Reduce Motion:** replace slides/springs/parallax with fades; drop z-axis and blur animation. `prefers-reduced-motion: reduce`.
 - **Don't auto-dismiss on a timer** (toasts/tooltips) — some users need more time; prefer explicit dismissal or generous, adjustable timing.
 - **No strobing** (>3 flashes/sec — seizure risk). No autoplay audio/video without a visible stop/pause control.
+- **Full text alternatives for audio/video** — captions, subtitles, transcripts, and audio descriptions (parity, not just captions). `[1.2.x]`
 - Every meaningful icon/image needs a text alternative (`aria-label`); decorative ones get `aria-hidden`.
 
 ## Color
@@ -100,6 +101,17 @@ Two-layer mental model: a floating **controls/chrome** layer (sticky headers, to
 - **SVG over raster**; color via `currentColor` (monochrome), optional opacity-hierarchy or multi-tone variant for depth.
 - **No text inside icons** (won't localize, illegible small). Prefer gender-neutral, culturally portable imagery.
 - Filled vs. outline is a legitimate state axis (outline = default, filled = selected/active, e.g. tab bars).
+- **Match animation to meaning** for status glyphs: pulse = ongoing activity, rotate = in-progress/loading, bounce/scale = an action just completed, replace = state change.
+
+## App icons & favicons
+
+The glyph rules above are for *interface* icons; app icons (favicon, PWA/home-screen icon, OG/social preview image) follow their own rules.
+
+- **One core concept, minimal shapes** — no UI screenshots, no photos, no fine detail (lost at small sizes). **No text** (won't localize, illegible small, redundant with the adjacent app name).
+- **Consistent identity across every surface/size** it appears at (favicon, home-screen, OG image, notification).
+- **Keep primary content centered inside a ~80% safe circle** so it survives platform masking (rounded corners, Android adaptive icons, Safari pinned tabs).
+- **Light/dark/high-contrast variants:** `<link rel="icon" media="(prefers-color-scheme: dark)">`.
+- **SVG for anything that scales**; raster (PNG) only for detailed/gradient art. **Test at 16×16 and 32×32**, not just the 512px source.
 
 ## Images
 

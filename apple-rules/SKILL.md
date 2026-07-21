@@ -43,9 +43,9 @@ Design for the actual **device + input combination** a person is using, not one 
 
 | Task | File |
 | --- | --- |
-| Color, dark mode, materials/translucency, typography, layout/safe-areas, icons, images, accessibility, RTL, privacy/permission copy, UX writing, branding, inclusion | [foundations.md](foundations.md) |
-| Onboarding, loading, feedback, modality, data entry/validation, search, settings, accounts/sign-in, notifications, undo/redo, drag & drop, collaboration, full-screen, launching | [patterns.md](patterns.md) |
-| Buttons, menus, sheets, popovers, alerts, action sheets, toggles, sliders, steppers, text fields, pickers, lists/tables, tab bars, toolbars, sidebars, search fields, segmented controls, progress, badges | [components.md](components.md) |
+| Color, dark mode, materials/translucency, typography, layout/safe-areas, icons, app icons/favicons, images, accessibility, RTL, privacy/permission copy, UX writing, branding, inclusion | [foundations.md](foundations.md) |
+| Onboarding, loading, feedback, modality, data entry/validation, search, settings, accounts/sign-in, notifications, undo/redo, drag & drop, collaboration, file management/autosave, offering help/tooltips, full-screen, launching | [patterns.md](patterns.md) |
+| Buttons, menus, sheets, popovers, alerts, action sheets, toggles, sliders, steppers, text fields, pickers, lists/tables, tab bars, toolbars, sidebars, search fields, token fields, segmented controls, split views, scroll views, charts, progress, badges, page controls, rating indicators | [components.md](components.md) |
 | Gestures, keyboard, pointer/hover hit-slop, focus & selection | [inputs.md](inputs.md) |
 | Springs, velocity handoff, interruptibility, momentum, reduced-motion, fps | [motion.md](motion.md) |
 | Sign in with Apple, Apple Pay on the Web, ML/GenAI UX methodology | [technologies.md](technologies.md) |

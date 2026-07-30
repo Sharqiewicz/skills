@@ -155,6 +155,13 @@ npx skills add vercel-labs/agent-skills
 npx skills add vercel-labs/agent-skills
 ```
 
+**better-** - skills for design engineers
+https://jakub.kr/skills
+
+```
+npx skills add jakubkrehel/skills
+```
+
 **OKLCH** — OKLCH color space for web projects. Convert hex/rgb/hsl to oklch, generate palettes, check contrast, handle gamut boundaries, and theme with Tailwind v4:
 
 - [https://github.com/jakubkrehel/oklch-skill/tree/main/skills/oklch-skill](https://github.com/jakubkrehel/oklch-skill/tree/main/skills/oklch-skill)
@@ -208,3 +215,7 @@ npx skills add mattpocock/skills/grill-me
 ```
 npx skills add mattpocock/skills/teach
 ```
+
+Shadcn's improve skill
+
+https://github.com/shadcn/improve/blob/main/skills/improve/SKILL.md

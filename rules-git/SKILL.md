@@ -1,5 +1,5 @@
 ---
-name: git
+name: rules-git
 description: "Reference for team git workflow — branching strategy, commit discipline, rebase/merge rules, tag management, and configuration. Triggers on: git, commit, branch, feature branch, rebase, merge, push, stash, tag, squash, fixup, rerere, git config, remote branch, gitignore, git log, conflict resolution, git cleanup, PR, pull request, git workflow."
 user-invocable: true
 ---

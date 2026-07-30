@@ -1,5 +1,5 @@
 ---
-name: cognitive-load
+name: review-cognitive-load
 description: "Review code for excessive cognitive load — identifies extraneous complexity and suggests concrete simplifications. Triggers on: cognitive load, extraneous complexity, hard to read, too many abstractions, too many files, shallow modules, deep modules, nested ifs, early returns, inheritance chain, composition, premature DRY, tight coupling, framework coupling, layered architecture, hexagonal architecture, onion architecture, ports and adapters, microservices, distributed monolith, DDD, domain-driven design, familiarity bias, design sacrifice, over-engineered, boring architecture, simplify, refactor, code review, mental load, working memory."
 user-invocable: true
 argument-hint: [FILE=<path> | AREA=<description>]

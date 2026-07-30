@@ -1,5 +1,5 @@
 ---
-name: z-index-doctor
+name: fix-z-index
 description: "Diagnostic decision tree for analyzing and fixing z-index, stacking context, and overlay problems in CSS. Use when an element renders behind something it shouldn't, when z-index values aren't taking effect, when modals/popovers/toasts overlap incorrectly, or when an element is mysteriously trapped by a parent. Triggers on: z-index, stacking context, stacking order, paint order, modal behind sidebar, toast behind backdrop, dialog, showModal, popover API, top layer, ::backdrop, transform breaks z-index, opacity stacking, position fixed not on top, overlay z-index, z-index 9999, z-index not working, element trapped, popover trapped, isolation isolate, mix-blend-mode, filter stacking, contain paint."
 user-invocable: true
 argument-hint: "[describe the symptom — e.g. 'modal renders behind sidebar']"

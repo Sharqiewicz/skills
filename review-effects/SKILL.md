@@ -1,5 +1,5 @@
 ---
-name: react-useffect
+name: review-effects
 description: "Guidance on when to use useEffect and how to replace it with correct React patterns. Triggers on: useEffect, side effect, synchronize state, useEffect with useState, useEffect fetch, useEffect cleanup, derived state, useSyncExternalStore, external system, subscription, useEffect dependency array, useEffect infinite loop, useEffect on mount, You Might Not Need an Effect."
 user-invocable: true
 argument-hint: "[FILE=<path> | AREA=<description>]"

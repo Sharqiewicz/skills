@@ -1,4 +1,4 @@
-# apple-rules
+# rules-apple
 
 Apple's **Human Interface Guidelines**, distilled and translated for the **web** (CSS / HTML / JS / React) — a complete, standalone skill for frontend and design engineers. Every rule works in **two modes**: as build guidance ("do X") and as a review check ("flag when not X").
 
@@ -22,7 +22,7 @@ Progressive-disclosure structure: `SKILL.md` is always loaded and routes to the 
 
 **Automatically** — Claude pulls the skill in when your prompt matches its triggers (Apple/iOS/macOS look, HIG, tap target, dark mode, `backdrop-filter`, sheet, modal, inline validation, `prefers-*`, …). You don't have to name it.
 
-**Explicitly** — type `/apple-rules` to force the Apple lens. Use this when your prompt is generic ("review this component") but you want it judged against Apple's rules specifically.
+**Explicitly** — type `/rules-apple` to force the Apple lens. Use this when your prompt is generic ("review this component") but you want it judged against Apple's rules specifically.
 
 > Rule of thumb: let it auto-fire for obvious cases; invoke explicitly when you want to guarantee this skill's lens.
 
@@ -31,7 +31,7 @@ Progressive-disclosure structure: `SKILL.md` is always loaded and routes to the 
 Name the component + your constraints (framework, mobile vs. desktop):
 
 ```
-/apple-rules build a bottom sheet with medium/large detents, a grabber,
+/rules-apple build a bottom sheet with medium/large detents, a grabber,
 and swipe-to-dismiss. React + Tailwind.
 ```
 
@@ -49,7 +49,7 @@ the button visually?
 The mode most people underuse. Because every rule is also a check, point it at a file or PR:
 
 ```
-/apple-rules review src/components/Dialog.tsx against Apple's HIG
+/rules-apple review src/components/Dialog.tsx against Apple's HIG
 ```
 
 Typical flags: destructive action styled as the primary button · modal missing focus restore · color-only state · `backdrop-filter` with no `prefers-reduced-transparency` fallback · tap targets under 44px · placeholder used as the only label.
@@ -62,21 +62,21 @@ Should "delete draft" be an alert, an action sheet, or a modal?
 
 ## Combining with other skills
 
-apple-rules is self-contained but stacks well:
+rules-apple is self-contained but stacks well:
 
-- **+ sharqiewicz-design-engineering** — apple-rules for *Apple's opinion* (semantic tokens, materials, dark-mode elevation); sharqiewicz for *generic web craft* (concentric radii, APCA contrast, virtualization).
-- **+ oklch-skill** — apple-rules sets the color rules ("semantic tokens, 4.5:1, P3 + sRGB fallback"); oklch generates the actual palette.
+- **+ rules-design-engineering** — rules-apple for *Apple's opinion* (semantic tokens, materials, dark-mode elevation); `rules-design-engineering` for *generic web craft* (concentric radii, APCA contrast, virtualization).
+- **+ oklch-skill** — rules-apple sets the color rules ("semantic tokens, 4.5:1, P3 + sRGB fallback"); oklch generates the actual palette.
 - **+ shadcn** — scaffold with shadcn, then "make these components follow Apple's HIG."
-- **+ /code-review** — build with apple-rules, then run code-review for logic/bugs the design skill doesn't hunt for.
+- **+ /code-review** — build with rules-apple, then run code-review for logic/bugs the design skill doesn't hunt for.
 
 ## A workflow that sticks
 
 **New UI:**
-1. Build → `/apple-rules`, naming the component + constraints.
+1. Build → `/rules-apple`, naming the component + constraints.
 2. Self-review → "now review what you just built against the HIG" (dual-mode audits its own output).
 3. Ship-check → `/code-review` for logic/bugs.
 
-**Existing UI:** point apple-rules at the file/PR in review mode first, fix the flags, done. Running it across your existing components once gives you a punch-list.
+**Existing UI:** point rules-apple at the file/PR in review mode first, fix the flags, done. Running it across your existing components once gives you a punch-list.
 
 ## Two habits that matter most
 

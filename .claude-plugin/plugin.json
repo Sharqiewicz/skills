@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "sharqiewicz",
+  "displayName": "Sharqiewicz Skills",
+  "version": "1.0.0",
+  "description": "Personal skill collection. Named <verb>-<object>[-mobile], where the verb prefix declares the mode: find (search), fix (diagnose+repair), rules (reference), review (audit), make (produce).",
+  "author": {
+    "name": "Kacper Szarkiewicz",
+    "url": "https://github.com/sharqiewicz"
+  },
+  "repository": "https://github.com/sharqiewicz/skills",
+  "keywords": [
+    "design-engineering",
+    "react",
+    "react-native",
+    "apple-hig",
+    "code-review"
+  ],
+  "skills": [
+    "./find-animations",
+    "./find-animations-mobile",
+    "./find-library",
+    "./find-library-mobile",
+    "./fix-z-index",
+    "./make-skill",
+    "./make-ticket",
+    "./review-cognitive-load",
+    "./review-effects",
+    "./rules-apple",
+    "./rules-apple-mobile",
+    "./rules-git",
+    "./rules-react-state"
+  ]
+}

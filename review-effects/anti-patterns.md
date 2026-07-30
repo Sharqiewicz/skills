@@ -385,7 +385,7 @@ function SearchResults({ query }: { query: string }) {
 
 React Query handles caching, deduplication, background refetching, loading/error states, and race conditions automatically.
 
-See [`state-management-sharqiewicz`](../../state-management-sharqiewicz/SKILL.md) for full React Query patterns.
+See [`rules-react-state`](../rules-react-state/SKILL.md) for full React Query patterns.
 
 If you must use `useEffect` for fetching (e.g., no React Query available), always use an AbortController:
 

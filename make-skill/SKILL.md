@@ -1,5 +1,5 @@
 ---
-name: new-skill
+name: make-skill
 description: "Scaffold a new Claude Code skill from scratch, or audit and improve an existing one. Enforces the canonical SKILL.md structure derived from high-quality reference skills. Triggers on: create skill, new skill, write skill, add skill, build skill, define skill, scaffold skill, make slash command, add command, codify knowledge, teach claude, audit skill, review skill, improve skill, fix skill structure."
 user-invocable: true
 argument-hint: [skill-name]

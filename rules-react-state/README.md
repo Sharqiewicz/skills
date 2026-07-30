@@ -1,4 +1,4 @@
- # react-state-management
+# rules-react-state
 
   Claude Code skill for React state management — Zustand, React Query, React Context, XState.
 

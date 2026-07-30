@@ -1,5 +1,5 @@
 ---
-name: project-manager
+name: make-ticket
 description: "Turn ideas, conversations, and plans into structured, testable work on the issue tracker. Three flows: (A) draft a single GitHub Issue in User Story format with Definition of Ready/Done; (B) synthesize the current conversation into a PRD; (C) break a plan or PRD into independently-grabbable tracer-bullet issues. Triggers on: github issue, create issue, new issue, user story, feature request, bug report, task, backlog item, DoR, DoD, acceptance criteria, write a PRD, turn this into a PRD, break this into issues, slice into tickets, vertical slices, tracer bullets."
 user-invocable: true
 args:

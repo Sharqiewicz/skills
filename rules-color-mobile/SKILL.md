@@ -1,6 +1,6 @@
 ---
 name: rules-color-mobile
-description: "Colour rules for React Native + Expo on iOS: design in OKLCH but emit only formats RN accepts (hex, rgb, hsl), use PlatformColor for iOS semantic colours, DynamicColorIOS for light, dark and high-contrast pairs, useColorScheme and Appearance for theming, contrast ratios and Increase Contrast, one tint colour, and dark-mode elevation. Every rule = principle + the exact RN/Expo API + the common RN mistake. For web, use /better-colors and /oklch-skill. Triggers on: color, colour, theme, dark mode, light mode, useColorScheme, Appearance, setColorScheme, userInterfaceStyle, PlatformColor, DynamicColorIOS, systemBackground, label, secondaryLabel, semantic colors, design tokens, palette, OKLCH, oklch, hex, contrast, WCAG, Increase Contrast, isDarkerSystemColorsEnabled, tint color, accent color, elevated background, separator, status bar, expo-system-ui."
+description: "Colour rules for React Native + Expo on iOS: design in OKLCH but emit only formats RN accepts (hex, rgb, hsl), use PlatformColor for iOS semantic colours, DynamicColorIOS for light, dark and high-contrast pairs, useColorScheme and Appearance for theming, contrast ratios and Increase Contrast, one tint colour, and dark-mode elevation. Every rule = principle + the exact RN/Expo API + the common RN mistake. For web, use /interfaces:better-colors. Triggers on: color, colour, theme, dark mode, light mode, useColorScheme, Appearance, setColorScheme, userInterfaceStyle, PlatformColor, DynamicColorIOS, systemBackground, label, secondaryLabel, semantic colors, design tokens, palette, OKLCH, oklch, hex, contrast, WCAG, Increase Contrast, isDarkerSystemColorsEnabled, tint color, accent color, elevated background, separator, status bar, expo-system-ui."
 user-invocable: true
 ---
 
@@ -11,7 +11,7 @@ Colour rules for React Native + Expo on iOS: author palettes in OKLCH, ship valu
 1. Find the existing colour source: a theme file, tokens, `constants/Colors`, or inline hex. All fixes go there.
 2. Check `app.json` / `app.config.*` for `userInterfaceStyle` and whether `expo-system-ui` is installed. [Expo: Color themes](https://docs.expo.dev/develop/user-interface/color-themes/)
 3. Decide the target: iOS-only (use `PlatformColor` and `DynamicColorIOS`) or iOS plus Android (wrap platform calls in `Platform.select`).
-4. For general HIG rules see `/sharqiewicz:rules-apple-mobile`. For OKLCH theory see `/oklch-skill`.
+4. For general HIG rules see `/sharqiewicz:rules-apple-mobile`. For OKLCH theory see `/interfaces:better-colors`.
 
 ---
 

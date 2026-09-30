@@ -61,7 +61,7 @@ Lane:  Motion · 2 candidates considered
 - Align the dashes as above. Put each `Also:` and `Not:` on its own line; a second `Also:` gets its own line too.
 - Add `Unmapped: /foo — run /sharqiewicz:make-skill-map` when an installed unmapped skill might fit. Do not recommend it as Use: it has no Owner decision yet.
 - When a skill is manual-only (the map says `manual`), it still goes on the line; the user types it.
-- When nothing installed fits, answer only: `Nothing installed fits → /find-skills <query>` with `<query>` filled in. `/find-skills` (Vercel's, installed via npx) searches skills.sh for new skills to install.
+- When nothing installed fits, answer only: `Nothing installed fits → npx skills find <query>` with `<query>` filled in. It searches skills.sh for new skills to install.
 
 **NEVER:**
 - Write, edit or delete any file, including `map.md` and the README, or run `scan.py --readme` / `--readme-out`
@@ -82,6 +82,6 @@ Lane:  Motion · 2 candidates considered
 - [ ] Platform (web or mobile) matches the project, and any twin is under `Not:`
 - [ ] Namesakes and lost Overlaps the user could confuse are under `Not:`
 - [ ] `Unmapped:` present only when an installed unmapped skill could fit
-- [ ] If nothing fit, the answer is only the `/find-skills` line
+- [ ] If nothing fit, the answer is only the `npx skills find` line
 
 One skill owns each job; the answer's only job is to say which one, exactly as the user should type it.

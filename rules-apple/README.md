@@ -65,7 +65,7 @@ Should "delete draft" be an alert, an action sheet, or a modal?
 rules-apple is self-contained but stacks well:
 
 - **+ rules-design-engineering** — rules-apple for *Apple's opinion* (semantic tokens, materials, dark-mode elevation); `rules-design-engineering` for *generic web craft* (concentric radii, APCA contrast, virtualization).
-- **+ oklch-skill** — rules-apple sets the color rules ("semantic tokens, 4.5:1, P3 + sRGB fallback"); oklch generates the actual palette.
+- **+ /interfaces:better-colors** — rules-apple sets the color rules ("semantic tokens, 4.5:1, P3 + sRGB fallback"); better-colors generates the actual OKLCH palette.
 - **+ shadcn** — scaffold with shadcn, then "make these components follow Apple's HIG."
 - **+ /code-review** — build with rules-apple, then run code-review for logic/bugs the design skill doesn't hunt for.
 

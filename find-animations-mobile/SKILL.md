@@ -1,6 +1,6 @@
 ---
 name: find-animations-mobile
-description: "Search a React Native / Expo iOS codebase for places that don't animate but should, and reject everything that shouldn't — including everything iOS already animates for you. Read-only; it proposes motion with exact Reanimated/gesture-handler values, it does not implement it. Use when the user asks what could be animated in a React Native app, wants a mobile screen to feel more native, or wants a motion pass over an RN interface. For web, use find-animations instead. Triggers on: React Native animation, Expo animation, what should animate, feels static, feels janky, doesn't feel native, motion pass, reanimated opportunities, add haptics, missing animations mobile, RN motion audit."
+description: "Search a React Native / Expo iOS codebase for places that don't animate but should, and reject everything that shouldn't — including everything iOS already animates for you. Read-only; it proposes motion with exact Reanimated/gesture-handler values, it does not implement it. Use when the user asks what could be animated in a React Native app, wants a mobile screen to feel more native, or wants a motion pass over an RN interface. For web, use /find-animation-opportunities instead. Triggers on: React Native animation, Expo animation, what should animate, feels static, feels janky, doesn't feel native, motion pass, reanimated opportunities, add haptics, missing animations mobile, RN motion audit."
 user-invocable: true
 argument-hint: [path or screen]
 ---

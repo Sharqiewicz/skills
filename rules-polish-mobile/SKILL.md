@@ -1,6 +1,6 @@
 ---
 name: rules-polish-mobile
-description: "The small details that make a React Native + Expo app feel native on iOS: Pressable press states and spring scale, concentric corner radius, borderCurve continuous, boxShadow vs shadow props, hairline borders, haptics, image placeholders and transitions, skeletons vs spinners, optimistic UI, no layout shift, native components over look-alikes. For web, use /better-ui and /make-interfaces-feel-better. Triggers on: polish, feels native, feels cheap, press state, Pressable, TouchableOpacity, scale on press, corner radius, borderCurve, continuous corners, boxShadow, shadow, hairlineWidth, expo-haptics, expo-image, placeholder, skeleton, spinner, optimistic update, layout shift, native feel, UI details."
+description: "The small details that make a React Native + Expo app feel native on iOS: Pressable press states and spring scale, concentric corner radius, borderCurve continuous, boxShadow vs shadow props, hairline borders, haptics, image placeholders and transitions, skeletons vs spinners, optimistic UI, no layout shift, native components over look-alikes. For web, use /interfaces:better-ui. Triggers on: polish, feels native, feels cheap, press state, Pressable, TouchableOpacity, scale on press, corner radius, borderCurve, continuous corners, boxShadow, shadow, hairlineWidth, expo-haptics, expo-image, placeholder, skeleton, spinner, optimistic update, layout shift, native feel, UI details."
 user-invocable: true
 ---
 

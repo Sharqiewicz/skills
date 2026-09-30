@@ -17,7 +17,6 @@
     "code-review"
   ],
   "skills": [
-    "./find-animations",
     "./find-animations-mobile",
     "./find-library",
     "./find-library-mobile",

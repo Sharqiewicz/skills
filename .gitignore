@@ -2,3 +2,4 @@ ignore/
 in-progress/
 docs/
 CLAUDE.md
+*.local.md

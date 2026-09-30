@@ -38,21 +38,17 @@ Want a single skill instead? `npx skills add sharqiewicz/skills/<skill>` (it get
 
 On my own machine the repo is symlinked as `~/.claude/skills/sharqiewicz`, which loads it as the `sharqiewicz@skills-dir` plugin, so every edit here is live without reinstalling. Don't delete that symlink.
 
+**Private local additions.** Any `*.local.md` file is gitignored. A skill may read one when it exists, which lets my own copy use context from paid courses (e.g. animations.dev) without publishing it. Never commit course material; installs from GitHub simply don't get those files.
+
 ### find — search and propose
 
-**`find-animations`** — sweep a **web** UI for moments that don't animate but should, and reject everything that shouldn't. Read-only: it proposes motion with exact curves and durations, it doesn't implement. Built on Emil Kowalski's ["You Don't Need Animations"](https://emilkowal.ski/ui/you-dont-need-animations) — a filter as much as a finder, with a four-question gate (frequency, purpose, speed, function), a required "rejected candidates" section, and a hard cap of 5–7 suggestions.
-
-```
-/sharqiewicz:find-animations
-```
-
-**`find-animations-mobile`** — the same skill for **React Native + Expo on iOS**. Adds the mobile premise that iOS already animates most of what matters: a system-owned table (native-stack pushes, edge-swipe back, sheet detents, tab switches, `RefreshControl`, native alerts) that is rejected before the gate, a UI-thread test as part of the function question, Reanimated/gesture-handler recipes with exact `dampingRatio` + `duration` configs, `expo-haptics` as a co-channel, and a mandatory Reduce Motion check (Reanimated follows the setting by default, but core `Animated`, `LayoutAnimation` and Lottie don't). Pairs with `rules-apple-mobile`.
+**`find-animations-mobile`** — sweep a **React Native + Expo on iOS** UI for moments that don't animate but should, and reject everything that shouldn't. Read-only, built on Emil Kowalski's ["You Don't Need Animations"](https://emilkowal.ski/ui/you-dont-need-animations), with a hard cap of 5–7 suggestions. Web sibling: `/find-animation-opportunities` (Emil). It adds the mobile premise that iOS already animates most of what matters: a system-owned table (native-stack pushes, edge-swipe back, sheet detents, tab switches, `RefreshControl`, native alerts) that is rejected before the gate, a UI-thread test as part of the function question, Reanimated/gesture-handler recipes with exact `dampingRatio` + `duration` configs, `expo-haptics` as a co-channel, and a mandatory Reduce Motion check (Reanimated follows the setting by default, but core `Animated`, `LayoutAnimation` and Lottie don't). Pairs with `rules-apple-mobile`.
 
 ```
 /sharqiewicz:find-animations-mobile
 ```
 
-**`find-library`** — a lookup skill for **web**: name a task, get one library. Curated and opinionated, covering UI primitives (base-ui, shadcn/ui, cmdk, Sonner), motion (motion, NumberFlow), data display (TanStack Table, recharts, Tiptap), interaction (dnd kit, Virtuoso), state & styling (zustand, TanStack Query, nuqs, clsx/cva/tailwind-merge), forms (react-hook-form + zod), backend (Drizzle, Better Auth, Resend, Trigger.dev), dates (Temporal over date-fns), and tooling (Vite, Vitest, Playwright, Biome). Includes a `decisions.md` for the contested calls and a "common mismatches" list that catches `useEffect`+`fetch`, filter state outside the URL, and dayjs in greenfield code. UI spine adapted from [Emil Kowalski's pick-ui-library](https://github.com/emilkowalski/skills/blob/main/skills/pick-ui-library/SKILL.md).
+**`find-library`** — a lookup skill for **web**: name a task, get one library. Curated and opinionated, covering UI primitives (base-ui, shadcn/ui, cmdk, Sonner), motion (motion, NumberFlow), data display (TanStack Table, recharts, Tiptap), interaction (dnd kit, Virtuoso), state & styling (zustand, TanStack Query, nuqs, clsx/cva/tailwind-merge), forms (react-hook-form + zod), backend (Drizzle, Better Auth, Resend, Trigger.dev), dates (Temporal over date-fns), and tooling (Vite, Vitest, Playwright, Biome). Includes a `decisions.md` for the contested calls and a "common mismatches" list that catches `useEffect`+`fetch`, filter state outside the URL, and dayjs in greenfield code. UI spine adapted from [Emil Kowalski's pick-ui-library](https://github.com/emilkowalski/skills/blob/main/skills/pick-ui-library/SKILL.md). On my machine it also reads a private, gitignored `animation-tools.local.md` when present (see below).
 
 ```
 /sharqiewicz:find-library
@@ -64,7 +60,7 @@ On my own machine the repo is symlinked as `~/.claude/skills/sharqiewicz`, which
 /sharqiewicz:find-library-mobile
 ```
 
-**`find-skill`** — ask which installed skill fits a job, e.g. `/sharqiewicz:find-skill animate a bottom sheet on iPhone`. Answers with exactly one skill to use, up to two complements, and the likely wrong picks (namesakes, web vs mobile twins, skills that lost an overlap), each with its exact namespaced command. Reads the curated `find-skill/map.md` plus a live scan of everything installed (`scan.py`), flags unmapped skills, and falls back to Vercel's `/find-skills` when nothing installed fits. Read-only and manual-only.
+**`find-skill`** — ask which installed skill fits a job, e.g. `/sharqiewicz:find-skill animate a bottom sheet on iPhone`. Answers with exactly one skill to use, up to two complements, and the likely wrong picks (namesakes, web vs mobile twins, skills that lost an overlap), each with its exact namespaced command. Reads the curated `find-skill/map.md` plus a live scan of everything installed (`scan.py`), flags unmapped skills, and falls back to `npx skills find` when nothing installed fits. Read-only and manual-only.
 
 ```
 /sharqiewicz:find-skill
@@ -110,7 +106,7 @@ On my own machine the repo is symlinked as `~/.claude/skills/sharqiewicz`, which
 /sharqiewicz:rules-typography-mobile
 ```
 
-**`rules-color-mobile`** — color rules for **React Native**: design in OKLCH but commit hex (RN doesn't document `oklch()`), iOS semantic colors via `PlatformColor`, `DynamicColorIOS` for light/dark and high contrast, Apple's contrast thresholds, and theme tokens. Web siblings: `/interfaces:better-colors`, `/oklch-skill`.
+**`rules-color-mobile`** — color rules for **React Native**: design in OKLCH but commit hex (RN doesn't document `oklch()`), iOS semantic colors via `PlatformColor`, `DynamicColorIOS` for light/dark and high contrast, Apple's contrast thresholds, and theme tokens. Web sibling: `/interfaces:better-colors`.
 
 ```
 /sharqiewicz:rules-color-mobile
@@ -122,13 +118,13 @@ On my own machine the repo is symlinked as `~/.claude/skills/sharqiewicz`, which
 /sharqiewicz:rules-accessibility-mobile
 ```
 
-**`rules-polish-mobile`** — the details that make a **React Native** app feel native: `Pressable` press states and scale, continuous corners, concentric radius, `boxShadow` vs `shadow*`, hairline borders, haptics chosen by Apple's guidance, image placeholders, and optimistic UI. Web siblings: `/interfaces:better-ui`, `/make-interfaces-feel-better`.
+**`rules-polish-mobile`** — the details that make a **React Native** app feel native: `Pressable` press states and scale, continuous corners, concentric radius, `boxShadow` vs `shadow*`, hairline borders, haptics chosen by Apple's guidance, image placeholders, and optimistic UI. Web sibling: `/interfaces:better-ui`.
 
 ```
 /sharqiewicz:rules-polish-mobile
 ```
 
-**`rules-design-engineering-mobile`** — craft for **React Native** engineers: respond on press-in, forms that fill themselves (`textContentType`, `autoComplete`, `submitBehavior`, focus chaining), touch instead of hover, interruptible interactions, native-stack presentations, and list choices. Web siblings: `/emil-design-eng`, `/emil-design-engineering`.
+**`rules-design-engineering-mobile`** — craft for **React Native** engineers: respond on press-in, forms that fill themselves (`textContentType`, `autoComplete`, `submitBehavior`, focus chaining), touch instead of hover, interruptible interactions, native-stack presentations, and list choices. Web sibling: `/emil-design-eng`.
 
 ```
 /sharqiewicz:rules-design-engineering-mobile
@@ -248,7 +244,7 @@ On my own machine the repo is symlinked as `~/.claude/skills/sharqiewicz`, which
 
 ### In progress
 
-Drafts in `in-progress/` (gitignored, not in the plugin). Older versions of two of them are installed on my machine as plain folders: `rules-design-engineering` as `/emil-design-engineering` and `rules-motion-layout` as `/motion-layout-animations`.
+Drafts in `in-progress/` (gitignored, not in the plugin).
 
 - **`rules-design-engineering`** — design engineering principles for polished, accessible, performant web interfaces: animation, forms, touch, color, typography, audio feedback, accessibility, Tailwind state cascading.
 - **`rules-motion-layout`** — Motion (Framer Motion successor) layout animations: `layout`, `layoutId`, shared element transitions, `AnimatePresence`, `LayoutGroup`, scale correction.
@@ -290,11 +286,11 @@ Maintained by `/sharqiewicz:make-skill-map`, read by `/sharqiewicz:find-skill`. 
 
 | Skill | Job | Notes |
 |---|---|---|
-| `/impeccable:impeccable` | Design, critique, audit, polish, typeset, distill any frontend UI (24 commands: `/impeccable:impeccable <command>`) | Owner of "design distinctive UI". Anthropic's frontend-design was removed in its favour |
+| `/impeccable:impeccable` | Design, critique, audit, polish, typeset, distill any frontend UI (24 commands: `/impeccable:impeccable <command>`) | Owner of "design distinctive UI", **only in projects with no defined design team**. When a design team owns the look, don't invent a visual direction: polish within their design with `/interfaces:better-*` and `/emil-design-eng` |
 | `/interfaces:better-ui` | Polish details: radius, optical alignment, shadows, micro-interactions | Owner of "polish small UI details" |
 | `/interfaces:better-layout` | Grouping, alignment, reading order, progressive disclosure | |
 | `/interfaces:better-typography` | Type scale, spacing, fonts, wrapping | |
-| `/interfaces:better-colors` | Color system, OKLCH, contrast | Owner of color. Overlaps `/oklch-skill` |
+| `/interfaces:better-colors` | Color system, OKLCH, contrast | Owner of color and OKLCH |
 | `/interfaces:better-accessibility` | Focus, keyboard, ARIA, WCAG | |
 | `/interfaces:better-writing` | Interface copy, errors, empty states | |
 | `/interfaces:better-interface` | All better-* in one review | Auto-invoked combo of the six above |
@@ -303,29 +299,21 @@ Maintained by `/sharqiewicz:make-skill-map`, read by `/sharqiewicz:find-skill`. 
 | `/interfaces:break` | Render a component in every state and stress it | manual. Code-side stress test: `/sharqiewicz:review-worst-case` (Code quality) |
 | `/interfaces:variant` | Build several variants of a component, pick one | manual. Overlaps `/prototype` |
 | `/prototype` | Several different versions of a UI piece behind a switcher | manual. Owner of "try several UI variants". Namesake of `/mattpocock-skills:prototype` (Matt, in Plan) |
-| `/make-interfaces-feel-better` | Older version of better-ui | Loses to `/interfaces:better-ui` |
-| `/oklch-skill` | OKLCH conversions, palettes, Tailwind v4 theming | Loses to `/interfaces:better-colors` |
-| `/emil-design-eng` | Emil's philosophy on polish and invisible details | Taste reference; complements better-ui |
-| `/emil-design-engineering` | Design engineering rules for forms, touch, performance | Older installed copy of my draft `in-progress/rules-design-engineering`; overlaps emil-design-eng |
+| `/emil-design-eng` | Emil's philosophy on polish and invisible details | Taste reference; the one I use most for polish. Complements better-ui |
 | `/sharqiewicz:rules-apple` | Apple HIG translated to web CSS/HTML/React | Web sibling of rules-apple-mobile |
 | `/sharqiewicz:rules-apple-mobile` | Apple HIG for React Native + Expo iOS | Mobile sibling of rules-apple |
-| `/sharqiewicz:find-library` | Pick one library for a web task (React, Next, Tailwind) | manual. Owner of "which library". Overlaps `/pick-ui-library` |
+| `/sharqiewicz:find-library` | Pick one library for a web task (React, Next, Tailwind) | manual. Owner of "which library". On my machine also owns CSS vs WAAPI vs motion via the private `animation-tools.local.md` |
 | `/sharqiewicz:find-library-mobile` | Pick one library for a React Native + Expo task | manual. Mobile sibling of find-library |
 | `/sharqiewicz:rules-layout-mobile` | Safe areas, keyboard, flexbox, adaptive layout in React Native | Mobile sibling of `/interfaces:better-layout` |
 | `/sharqiewicz:rules-typography-mobile` | Dynamic Type, text styles, system font in React Native | Mobile sibling of `/interfaces:better-typography` |
-| `/sharqiewicz:rules-color-mobile` | PlatformColor, DynamicColorIOS, dark mode, contrast in React Native | Mobile sibling of `/interfaces:better-colors` and `/oklch-skill` |
+| `/sharqiewicz:rules-color-mobile` | PlatformColor, DynamicColorIOS, dark mode, contrast in React Native | Mobile sibling of `/interfaces:better-colors` |
 | `/sharqiewicz:rules-accessibility-mobile` | VoiceOver roles, labels, focus, 44pt targets in React Native | Mobile sibling of `/interfaces:better-accessibility` |
-| `/sharqiewicz:rules-polish-mobile` | Press feedback, continuous corners, shadows, haptics in React Native | Mobile sibling of `/interfaces:better-ui` and `/make-interfaces-feel-better` |
-| `/sharqiewicz:rules-design-engineering-mobile` | Forms, touch, perceived speed, native presentation in React Native | Mobile sibling of `/emil-design-eng` and `/emil-design-engineering` |
+| `/sharqiewicz:rules-polish-mobile` | Press feedback, continuous corners, shadows, haptics in React Native | Mobile sibling of `/interfaces:better-ui` |
+| `/sharqiewicz:rules-design-engineering-mobile` | Forms, touch, perceived speed, native presentation in React Native | Mobile sibling of `/emil-design-eng` |
 | `/sharqiewicz:review-interface-mobile` | Audit React Native screens against every rules-*-mobile skill | manual, read-only. Owner of "review this mobile UI". Mobile sibling of `/interfaces:interface-review` and `/web-interface-guidelines` |
-| `/pick-ui-library` | Pick UI and motion tools the animations.dev course trusts | Loses to find-library except for CSS vs WAAPI vs Motion vs GSAP |
 | `/shadcn` | Add, search, fix and style shadcn components | |
-| `/ask-sonner` | Sonner toast library guide | |
-| `/userinterface-wiki` | UI/UX best-practice findings by file:line | Reference; overlaps the better-* set, use as a second opinion |
 | `/vocabulary` | Exact design and UI terms for a loose idea | Owner of "what is this design thing called". Motion terms: `/animation-vocabulary` |
 | `/web-interface-guidelines` | Review UI code against Vercel's guidelines | Command in ~/.claude/commands |
-| `/extract-component` | Extract inline JSX into named components | Command in ~/.claude/commands, Vortex conventions |
-| `/write-swift` | Write modern Swift (value types, Swift 6 concurrency) | Native iOS; not React Native |
 
 ### Motion — how it moves
 
@@ -333,8 +321,7 @@ Maintained by `/sharqiewicz:make-skill-map`, read by `/sharqiewicz:find-skill`. 
 |---|---|---|
 | `/animate` | Design and build web animations (Emil / animations.dev) | Owner of "add a web animation". Mobile sibling: `/animate-expo`. Real folder overwrote Emil's npx copy |
 | `/animate-expo` | Animations in React Native + Expo | Owner of "motion on mobile". Web sibling: `/animate` |
-| `/sharqiewicz:find-animations` | Find places that should animate, reject the rest (web) | Read-only. Owner of "where should I add motion". Overlaps `/find-animation-opportunities` |
-| `/sharqiewicz:find-animations-mobile` | Same, for React Native + Expo iOS | Mobile sibling of find-animations |
+| `/sharqiewicz:find-animations-mobile` | Find places that should animate in React Native + Expo iOS, reject the rest | Read-only. Owner of "where should I add motion" on mobile. Web sibling: `/find-animation-opportunities` |
 | `/sharqiewicz:rules-gestures-mobile` | gesture-handler + Reanimated drag, fling, decay, sheets | Mobile sibling of `/gesture-ui` |
 | `/sharqiewicz:rules-reduced-motion-mobile` | Reduce Motion in Reanimated, Animated, Lottie, video | Mobile sibling of `/animation-accessibility` |
 | `/sharqiewicz:rules-animation-performance-mobile` | JS vs UI thread, worklets, cheap props, profiling | Mobile sibling of `/animation-performance` |
@@ -343,7 +330,7 @@ Maintained by `/sharqiewicz:make-skill-map`, read by `/sharqiewicz:find-skill`. 
 | `/sharqiewicz:make-animation-plan-mobile` | Audit an app's motion, write plans for cheaper models | manual. Mobile sibling of `/improve-animations` |
 | `/sharqiewicz:make-motion-brief-mobile` | Interview me about a mobile animation before building | manual. Mobile sibling of `/motion-brief` |
 | `/sharqiewicz:make-prototype-mobile` | Several variants behind a switcher on an Expo dev screen | manual. Mobile sibling of `/prototype` |
-| `/find-animation-opportunities` | Emil's version of find-animations | manual. Overlap; loses to find-animations |
+| `/find-animation-opportunities` | Find places that should animate on the web, reject the rest (Emil) | manual. Owner of "where should I add motion" on the web. Mobile sibling: `/sharqiewicz:find-animations-mobile` |
 | `/review-animations` | Review animation code against the animations.dev bar | manual. Owner of "review my animations" |
 | `/improve-animations` | Audit motion and write implementation plans | manual. Plans for other agents; review-animations is the findings report |
 | `/debug-animation` | Name the exact cause of an animation that feels off | Owner of "my animation is janky or wrong" |
@@ -352,7 +339,6 @@ Maintained by `/sharqiewicz:make-skill-map`, read by `/sharqiewicz:find-skill`. 
 | `/animation-vocabulary` | Name a motion effect from a vague description | Owner of motion terms. General design terms: `/vocabulary` |
 | `/css-animations` | CSS-only transitions, keyframes, transforms | |
 | `/motion-react` | Motion for React (motion/react) | |
-| `/motion-layout-animations` | layout, layoutId, AnimatePresence, shared elements | Owner of layout animation inside Motion. Older installed copy of my draft `in-progress/rules-motion-layout` |
 | `/scroll-animations` | Scroll-triggered reveals and scroll-driven animation | |
 | `/gesture-ui` | Drag, swipe, sheets that track the finger | Web. Mobile sibling: `/sharqiewicz:rules-gestures-mobile` |
 | `/motion-brief` | Interview me about an animation before building | Plan-like but motion-specific, so it lives here |
@@ -390,18 +376,6 @@ Maintained by `/sharqiewicz:make-skill-map`, read by `/sharqiewicz:find-skill`. 
 | `/mattpocock-skills:setup-pre-commit` | Husky, lint-staged, type checks | |
 | `/mattpocock-skills:git-guardrails-claude-code` | Hooks that block dangerous git commands | |
 
-### SEO — search visibility
-
-| Skill | Job | Notes |
-|---|---|---|
-| `/seo` | Entry point: comprehensive SEO analysis, routes to the rest | Owner when the ask is just "SEO" |
-| `/seo-audit`, `/seo-page`, `/seo-technical` | Full site audit, single page, technical audit | Audit family |
-| `/seo-content`, `/seo-content-brief`, `/seo-cluster`, `/seo-plan` | Content quality, briefs, topic clusters, strategy | Content and planning family |
-| `/seo-schema`, `/seo-sitemap`, `/seo-hreflang`, `/seo-images`, `/seo-image-gen` | Structured data, sitemaps, international, images | On-page assets |
-| `/seo-geo`, `/seo-sxo`, `/seo-programmatic`, `/seo-competitor-pages`, `/seo-ecommerce`, `/seo-local`, `/seo-maps` | AI search, SERP fit, scale pages, vs-pages, shops, local | Specialties |
-| `/seo-backlinks`, `/seo-drift`, `/seo-flow`, `/seo-unlighthouse`, `/seo-firecrawl` | Links, drift monitoring, FLOW framework, Lighthouse, crawling | Monitoring and tooling |
-| `/seo-ahrefs`, `/seo-bing`, `/seo-dataforseo`, `/seo-google`, `/seo-profound`, `/seo-seranking` | Data providers (need API keys or MCP) | Extensions |
-
 ### Tools — integrations and meta
 
 | Skill | Job | Notes |
@@ -409,7 +383,6 @@ Maintained by `/sharqiewicz:make-skill-map`, read by `/sharqiewicz:find-skill`. 
 | `/sharqiewicz:find-skill` | Which installed skill fits this job | manual, read-only. Owner of "which of my skills" |
 | `/sharqiewicz:make-skill-map` | Keep this map current and regenerate the README block | manual. Only writer of map.md |
 | `/sharqiewicz:make-skill` | Scaffold or audit a skill | |
-| `/find-skills` | Search skills.sh for new skills to install | Vercel, installed via npx. Finds skills I do not have yet |
 | `/mattpocock-skills:ask-matt` | Which of Matt's skills fits | manual. Only covers his set; find-skill covers everything |
 | `/mattpocock-skills:writing-for-agents` | Write skills, AGENTS.md, agent docs | |
 | `/mattpocock-skills:setup-matt-pocock-skills` | Configure a repo for Matt's skills | manual |
@@ -421,11 +394,6 @@ Maintained by `/sharqiewicz:make-skill-map`, read by `/sharqiewicz:find-skill`. 
 | `/claude-mem:mem-search` | Search past sessions | Owner of "did we solve this before" |
 | `/claude-mem:smart-explore` | Token-cheap AST code search | |
 | `/claude-mem:knowledge-agent`, `/claude-mem:timeline-report`, `/claude-mem:claude-code-plugin-release` | Knowledge bases, project timeline, plugin release | |
-| `/sentry:sentry-workflow` | Fix production issues with Sentry context | Owner of "fix this Sentry error" |
-| `/sentry:sentry-fix-issues`, `/sentry:sentry-code-review`, `/sentry:sentry-pr-code-review` | Manual variants: fix issues, resolve Sentry PR comments, Seer PR review | manual |
-| `/sentry:sentry-sdk-setup`, `/sentry:sentry-feature-setup` | Set up Sentry in any stack, or a specific feature | Owner of "add Sentry" |
-| `/sentry:sentry-instrumentation-guide`, `/sentry:sentry-create-alert`, `/sentry:sentry-setup-ai-monitoring`, `/sentry:sentry-otel-exporter-setup`, `/sentry:sentry-sdk-upgrade`, `/sentry:sentry-sdk-skill-creator` | Signals, alerts, AI monitoring, OTel, upgrades, SDK skill bundles | manual |
-| `/sentry:sentry-*-sdk` | Per-platform SDK setup (React, Next, Node, React Native, Python, Go, ...) | manual. Reached through sentry-sdk-setup |
 | `/figma:figma-design-to-code`, `/figma:figma-implement-motion`, `/figma:figma-swiftui`, `/figma:figma-code-connect` | Figma to code | Figma plugin; MCP prerequisites load themselves |
 | `/figma:figma-use`, `/figma:figma-use-figjam`, `/figma:figma-use-slides`, `/figma:figma-use-motion`, `/figma:figma-create-new-file`, `/figma:figma-generate-design`, `/figma:figma-generate-library`, `/figma:figma-generate-diagram`, `/figma:figma-shaders`, `/figma:figma-generative-plugins` | Code to Figma, writes into files | Figma plugin |
 | `/figma:video-interaction-mapper`, `/figma:generate-project-plan` | Screen recording to interaction map, FigJam plan board | Figma plugin |
@@ -481,15 +449,7 @@ npx skills add vercel-labs/agent-skills
 /plugin install interfaces@interfaces
 ```
 
-**OKLCH** — OKLCH color space for web projects. Convert hex/rgb/hsl to oklch, generate palettes, check contrast, handle gamut boundaries, and theme with Tailwind v4:
-
-- [https://github.com/jakubkrehel/oklch-skill/tree/main/skills/oklch-skill](https://github.com/jakubkrehel/oklch-skill/tree/main/skills/oklch-skill)
-
-```
-npx skills add jakubkrehel/oklch-skill
-```
-
-**Impeccable** — deep design knowledge in one skill with 24 commands (`/impeccable:impeccable polish`, `/impeccable:impeccable audit`, …):
+**Impeccable** — deep design knowledge in one skill with 24 commands (`/impeccable:impeccable polish`, `/impeccable:impeccable audit`, …). Only for projects with no defined design team; where a design team owns the look, polish within it using better-* and `emil-design-eng`:
 
 - [https://github.com/pbakaus/impeccable](https://github.com/pbakaus/impeccable)
 
@@ -510,34 +470,18 @@ npx skills add index-how/vocabulary
 npx skills add shadcn/ui
 ```
 
-**userinterface-wiki** — UI/UX best-practice checks reported by file and line; a second opinion next to the better-* set.
-
-```
-npx skills add raphaelsalaja/userinterface-wiki
-```
-
 ### Motion
 
-**Emil Kowalski's skills** — `animate`, `animate-expo` (React Native + Expo), `review-animations`, `improve-animations`, `find-animation-opportunities`, `prototype`, `pick-ui-library`, `animation-vocabulary`, `emil-design-eng`, `ask-sonner`, `write-swift`. https://emilkowal.ski/skill
+**Emil Kowalski's skills** — `animate`, `animate-expo` (React Native + Expo), `review-animations`, `improve-animations`, `find-animation-opportunities`, `prototype`, `animation-vocabulary`, `emil-design-eng`. https://emilkowal.ski/skill. I don't use the rest of the set (`find-library` covers `pick-ui-library`), so install only these:
 
 ```
-npx skills add emilkowalski/skills
+npx skills add emilkowalski/skills --skill animate animate-expo review-animations improve-animations find-animation-opportunities prototype animation-vocabulary emil-design-eng
 ```
 
 **animations.dev skills** — 15 course skills (`animate`, `css-animations`, `motion-react`, `motion-brief`, `gesture-ui`, `scroll-animations`, `debug-animation`, …). Private, for course members only. The installer writes real folders into `~/.claude/skills/` and overwrites same-name skills from Emil's set, so run it **after** `npx skills add emilkowalski/skills`, and never run `npx skills update` on those names afterwards. https://animations.dev/learn/skills
 
 ```
 npx @animationsdev/install --token=<your token>
-```
-
-### SEO
-
-**Comprehensive SEO** — `seo-*` skills and subagents covering technical SEO, on-page analysis, content quality (E-E-A-T), schema markup, image optimization, sitemap architecture, AI search optimization (GEO), local SEO, and more. Installed with the script from https://claude-seo.md, which copies the skills into `~/.claude/skills/` and the subagents into `~/.claude/agents/` (update by rerunning it). A plugin install also exists: `claude-seo@agricidaniel-claude-seo`.
-
-- [https://github.com/AgriciDaniel/claude-seo](https://github.com/AgriciDaniel/claude-seo)
-
-```
-git clone --depth 1 https://github.com/AgriciDaniel/claude-seo.git && bash claude-seo/install.sh
 ```
 
 ### Tooling
@@ -561,19 +505,6 @@ git clone --depth 1 https://github.com/AgriciDaniel/claude-seo.git && bash claud
 npx skills add mattpocock/skills/obsidian-vault
 ```
 
-**find-skills** (Vercel) — searches skills.sh for skills I don't have yet. `/sharqiewicz:find-skill` hands off to it when nothing installed fits.
-
-```
-npx skills add vercel-labs/skills --skill find-skills
-```
-
-**Sentry** — fix production issues with Sentry context, set up SDKs, alerts and AI monitoring (invoke as `/sentry:<skill>`).
-
-```
-/plugin marketplace add getsentry/plugin-claude
-/plugin install sentry@sentry-plugin-marketplace
-```
-
 **Figma** — design to code and code to Figma (invoke as `/figma:<skill>`).
 
 ```
@@ -589,8 +520,7 @@ npx skills add vercel-labs/skills --skill find-skills
 
 ### Keeping external skills up to date
 
-- **Plugins** (Impeccable, Matt Pocock, Jakub, shadcn improve, Sentry, Figma, claude-mem, and this repo for other people): third-party marketplaces don't auto-update by default. Turn it on per marketplace in `/plugin` → Marketplaces, or run `claude plugin update <plugin>`.
-- **npx skills** (Emil, OKLCH, vocabulary, shadcn/ui, React Doctor, userinterface-wiki, find-skills, obsidian-vault): `npx skills update`. Skip the names that animations.dev overwrote.
-- **Script** (SEO): rerun the claude-seo install script.
+- **Plugins** (Impeccable, Matt Pocock, Jakub, shadcn improve, Figma, claude-mem, and this repo for other people): third-party marketplaces don't auto-update by default. Turn it on per marketplace in `/plugin` → Marketplaces, or run `claude plugin update <plugin>`.
+- **npx skills** (Emil, vocabulary, shadcn/ui, React Doctor, obsidian-vault): `npx skills update`. Skip the names that animations.dev overwrote.
 - **Folders** (animations.dev): rerun its installer with your token.
 - **Never install the same set through two channels.** A plugin copy and an npx copy of one skill both load and compete.

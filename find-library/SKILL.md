@@ -18,6 +18,7 @@ A lookup skill. When invoked with a task ("I need toasts", "what should I use fo
 4. **Recommend one library**, state what it's for in one sentence, and install/wire it up if that's part of the request. Don't present a menu when the list has a clear answer.
 5. **If the call is genuinely contested** (state, styling, forms, auth, database, editors, dates) → read [decisions.md](decisions.md) for the real tradeoff and when to deviate.
 6. If the task isn't covered, say so explicitly and recommend from your own knowledge — but be clear you've left the curated list.
+7. **If `animation-tools.local.md` exists next to this file, read it** for animation-tool choices (CSS vs WAAPI vs motion) and the extra picks it lists. It is a private local addition, so never quote it into anything published.
 
 ## UI components & primitives
 

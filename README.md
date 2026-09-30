@@ -27,6 +27,8 @@ Two rules that keep the set honest:
 
 ## My skills
 
+The whole repo is one Claude Code plugin (`.claude-plugin/plugin.json`). On my machine it's symlinked as `~/.claude/skills/sharqiewicz`, which loads it as `sharqiewicz@skills-dir`, so every skill is invoked as `/sharqiewicz:<skill>` and always matches the repo. **Don't also install my skills with `npx skills add`**: that creates frozen copies that compete with the plugin. The per-skill `npx` commands below are for other people who want a single skill.
+
 ### find — search and propose
 
 **`find-animations`** — sweep a **web** UI for moments that don't animate but should, and reject everything that shouldn't. Read-only: it proposes motion with exact curves and durations, it doesn't implement. Built on Emil Kowalski's ["You Don't Need Animations"](https://emilkowal.ski/ui/you-dont-need-animations) — a filter as much as a finder, with a four-question gate (frequency, purpose, speed, function), a required "rejected candidates" section, and a hard cap of 5–7 suggestions.
@@ -87,6 +89,12 @@ npx skills add sharqiewicz/skills/rules-react-state
 npx skills add sharqiewicz/skills/rules-git
 ```
 
+**`rules-web-security`** — frontend and full-stack web security for React, Next.js and TypeScript. Covers XSS sinks, CSP and security headers, CORS, postMessage and WebSocket, CSRF, cookies and sessions, JWT and OAuth/PKCE, and secrets leaked to the browser. Distilled from Securitum's *Bezpieczeństwo aplikacji webowych* (frontend chapters) and checked against current OWASP and MDN guidance. Every rule works as build guidance and as a review check.
+
+```
+npx skills add sharqiewicz/skills/rules-web-security
+```
+
 ### review — audit against a standard
 
 **`review-cognitive-load`** — reviews code for extraneous complexity — the kind caused by how code is written, not by the inherent difficulty of the problem — and suggests concrete simplifications.
@@ -101,12 +109,24 @@ npx skills add sharqiewicz/skills/review-cognitive-load
 npx skills add sharqiewicz/skills/review-effects
 ```
 
+**`review-worst-case`** — tries to break what you just built. Maps where user data enters and where it's displayed, then runs worst-case payloads against the local app: very long names, odd emails, emoji/RTL/Zalgo, 10k rows, zero rows, double submits, Dynamic Type XXL on the smallest iPhone, and case-insensitive duplicates in the DB. Returns a severity-ranked break report with evidence, layer mismatches (UI vs validator vs DB limits) and a cleanup command for seeded data. It never edits source and refuses prod targets unless you confirm them. Pairs with `harden` for the fixes.
+
+```
+npx skills add sharqiewicz/skills/review-worst-case
+```
+
 ### make — produce an artifact
 
 **`make-skill`** — scaffolds a new skill from scratch, or audits an existing one against the canonical `SKILL.md` structure and fixes the gaps.
 
 ```
 npx skills add sharqiewicz/skills/make-skill
+```
+
+**`make-commit-plan`** — inspects the working tree and proposes how to stage and commit it: logical commit groups, exact `git add` commands (with `-p` hunks when a file spans two commits), and Conventional Commits messages. Runs a risk scan for secrets, build artifacts, and debug leftovers first. Read-only by design — it never runs `git add` or `git commit`; you copy the plan and press the button. Pairs with `rules-git`.
+
+```
+npx skills add sharqiewicz/skills/make-commit-plan
 ```
 
 **`make-ticket`** — turns ideas, conversations, and plans into structured, testable work. Three flows: draft a single GitHub Issue in User Story format with Definition of Ready/Done; synthesize the current conversation into a PRD; break a plan or PRD into independently-grabbable tracer-bullet issues.
@@ -155,11 +175,11 @@ npx skills add vercel-labs/agent-skills
 npx skills add vercel-labs/agent-skills
 ```
 
-**better-** - skills for design engineers
-https://jakub.kr/skills
+**better-** — skills for design engineers (`better-ui`, `better-colors`, `better-layout`, `better-typography`, `better-accessibility`, `better-interface`, `better-writing`), installed as one plugin (invoke as `/interfaces:<skill>`). https://jakub.kr/skills
 
 ```
-npx skills add jakubkrehel/skills
+/plugin marketplace add jakubkrehel/skills
+/plugin install interfaces@interfaces
 ```
 
 **OKLCH** — OKLCH color space for web projects. Convert hex/rgb/hsl to oklch, generate palettes, check contrast, handle gamut boundaries, and theme with Tailwind v4:
@@ -170,18 +190,13 @@ npx skills add jakubkrehel/skills
 npx skills add jakubkrehel/oklch-skill
 ```
 
-**Impeccable** — deep design knowledge with 18 commands to steer the result:
+**Impeccable** — deep design knowledge in one skill with 24 commands (`/impeccable polish`, `/impeccable audit`, …):
 
 - [https://github.com/pbakaus/impeccable](https://github.com/pbakaus/impeccable)
 
 ```
-npx skills add pbakaus/impeccable
-```
-
-**review-animations** — https://emilkowal.ski/skill
-
-```
-npx skills add emilkowalski/skill
+/plugin marketplace add pbakaus/impeccable
+/plugin install impeccable@impeccable
 ```
 
 **vocabulary** — https://index.how/to/articulate
@@ -196,26 +211,54 @@ npx skills add index-how/vocabulary
 npx skills add shadcn/ui
 ```
 
+### Motion
+
+**Emil Kowalski's skills** — `animate`, `animate-expo` (React Native + Expo), `review-animations`, `improve-animations`, `find-animation-opportunities`, `prototype`, `pick-ui-library`, `animation-vocabulary`, `emil-design-eng`, `ask-sonner`, `write-swift`. https://emilkowal.ski/skill
+
+```
+npx skills add emilkowalski/skills
+```
+
+**animations.dev skills** — 15 course skills (`animate`, `css-animations`, `motion-react`, `motion-brief`, `gesture-ui`, `scroll-animations`, `debug-animation`, …). Private, for course members only. The installer writes real folders into `~/.claude/skills/` and overwrites same-name skills from Emil's set, so run it **after** `npx skills add emilkowalski/skills`, and never run `npx skills update` on those names afterwards. https://animations.dev/learn/skills
+
+```
+npx @animationsdev/install --token=<your token>
+```
+
 ### SEO
 
-**Comprehensive SEO** — 20 core sub-skills covering technical SEO, on-page analysis, content quality (E-E-A-T), schema markup, image optimization, sitemap architecture, AI search optimization (GEO), local SEO, and more:
+**Comprehensive SEO** — `seo-*` skills and subagents covering technical SEO, on-page analysis, content quality (E-E-A-T), schema markup, image optimization, sitemap architecture, AI search optimization (GEO), local SEO, and more. Installed with the script from https://claude-seo.md, which copies the skills into `~/.claude/skills/` and the subagents into `~/.claude/agents/` (update by rerunning it). A plugin install also exists: `claude-seo@agricidaniel-claude-seo`.
 
 - [https://github.com/AgriciDaniel/claude-seo](https://github.com/AgriciDaniel/claude-seo)
 
+```
+git clone --depth 1 https://github.com/AgriciDaniel/claude-seo.git && bash claude-seo/install.sh
+```
+
 ### Tooling
 
-**Grill me** — interview the user relentlessly about a plan or design until reaching shared understanding. Use when stress-testing a plan or design:
+**Matt Pocock's skills** — grill-me, grill-with-docs, teach, tdd and more, installed as one plugin (invoke as `/mattpocock-skills:<skill>`). https://github.com/mattpocock/skills
 
 ```
-npx skills add mattpocock/skills/grill-me
+/plugin install mattpocock-skills@claude-plugins-official
 ```
 
-**Teach** — https://github.com/mattpocock/skills/tree/main/skills/productivity/teach
+**improve** (shadcn) — a senior codebase audit that writes implementation plans for other agents to execute. https://github.com/shadcn/improve
 
 ```
-npx skills add mattpocock/skills/teach
+/plugin marketplace add shadcn/improve
+/plugin install improve@improve
 ```
 
-Shadcn's improve skill
+**Obsidian vault** (Matt Pocock) — search, create, and organize notes in Obsidian. It isn't in Matt's plugin, so it's the one skill from his repo installed with npx.
 
-https://github.com/shadcn/improve/blob/main/skills/improve/SKILL.md
+```
+npx skills add mattpocock/skills/obsidian-vault
+```
+
+### Keeping external skills up to date
+
+- **Plugins** (Impeccable, Matt Pocock, Jakub, shadcn improve): third-party marketplaces don't auto-update by default. Turn it on per marketplace in `/plugin` → Marketplaces, or run `claude plugin update <plugin>`.
+- **npx skills** (Emil, OKLCH, vocabulary, shadcn/ui, obsidian-vault): `npx skills update`. Skip the names that animations.dev overwrote.
+- **Script** (SEO): rerun the claude-seo install script.
+- **Never install the same set through two channels.** A plugin copy and an npx copy of one skill both load and compete.

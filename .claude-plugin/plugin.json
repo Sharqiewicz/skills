@@ -22,13 +22,16 @@
     "./find-library",
     "./find-library-mobile",
     "./fix-z-index",
+    "./make-commit-plan",
     "./make-skill",
     "./make-ticket",
     "./review-cognitive-load",
     "./review-effects",
+    "./review-worst-case",
     "./rules-apple",
     "./rules-apple-mobile",
     "./rules-git",
-    "./rules-react-state"
+    "./rules-react-state",
+    "./rules-web-security"
   ]
 }

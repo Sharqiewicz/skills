@@ -16,7 +16,7 @@ Every skill in this repo is named `<verb>-<object>[-<platform>]`. The prefix is 
 | `review-` | audits existing code against a standard, returns findings | yes |
 | `make-` | produces an artifact | no |
 
-`-mobile` is the only suffix, and it means React Native + Expo on iOS. Every `-mobile` skill has a web sibling with the same stem, and the two cross-reference each other.
+`-mobile` is the only suffix, and it means React Native + Expo on iOS. Every `-mobile` skill names its web sibling, which may be an external skill (e.g. `review-animations-mobile` ↔ `/review-animations`). When the sibling is my own skill, the two cross-reference each other.
 
 Two rules that keep the set honest:
 
@@ -46,7 +46,7 @@ On my own machine the repo is symlinked as `~/.claude/skills/sharqiewicz`, which
 /sharqiewicz:find-animations
 ```
 
-**`find-animations-mobile`** — the same skill for **React Native + Expo on iOS**. Adds the mobile premise that iOS already animates most of what matters: a system-owned table (native-stack pushes, edge-swipe back, sheet detents, tab switches, `RefreshControl`, native alerts) that is rejected before the gate, a UI-thread test as part of the function question, Reanimated/gesture-handler recipes with exact `dampingRatio` + `duration` configs, `expo-haptics` as a co-channel, and a mandatory Reduce Motion check (RN doesn't suppress motion automatically). Pairs with `rules-apple-mobile`.
+**`find-animations-mobile`** — the same skill for **React Native + Expo on iOS**. Adds the mobile premise that iOS already animates most of what matters: a system-owned table (native-stack pushes, edge-swipe back, sheet detents, tab switches, `RefreshControl`, native alerts) that is rejected before the gate, a UI-thread test as part of the function question, Reanimated/gesture-handler recipes with exact `dampingRatio` + `duration` configs, `expo-haptics` as a co-channel, and a mandatory Reduce Motion check (Reanimated follows the setting by default, but core `Animated`, `LayoutAnimation` and Lottie don't). Pairs with `rules-apple-mobile`.
 
 ```
 /sharqiewicz:find-animations-mobile
@@ -78,6 +78,12 @@ On my own machine the repo is symlinked as `~/.claude/skills/sharqiewicz`, which
 /sharqiewicz:fix-z-index
 ```
 
+**`fix-animation-mobile`** — diagnose why a **React Native** animation feels off or drops frames, then fix it with the smallest diff. Starts from a release build on a real device, sorts the symptom into JS-thread drops, UI-thread drops, feel, or interaction, and checks the usual causes (core `Animated` without the native driver, animated layout props, per-frame state updates, per-frame hops to JS, the wrong spring). Manual-only. Web sibling: `/debug-animation`.
+
+```
+/sharqiewicz:fix-animation-mobile
+```
+
 ### rules — normative reference
 
 **`rules-apple`** — Apple's Human Interface Guidelines translated for the web (CSS/HTML/JS/React), for frontend and design engineers. Complete standalone skill covering foundations (color, dark mode, materials/translucency, typography, layout, accessibility, RTL, writing), patterns (onboarding, loading/skeletons, feedback, modality, inline validation, delayed sign-in, search, settings), components (buttons, sheets, popovers, alerts, toggles, tab bars, toolbars, sidebars…), inputs (gestures, keyboard, pointer/hover, focus), motion (springs, velocity, interruptibility, reduced-motion), and web-relevant Apple technologies (Sign in with Apple, Apple Pay on the Web). Every rule works as build guidance and as a review check.
@@ -90,6 +96,60 @@ On my own machine the repo is symlinked as `~/.claude/skills/sharqiewicz`, which
 
 ```
 /sharqiewicz:rules-apple-mobile
+```
+
+**`rules-layout-mobile`** — layout rules for **React Native + Expo on iOS**: safe areas with `react-native-safe-area-context`, the home indicator and Dynamic Island, keyboard avoidance, RN's flexbox defaults, a point-based spacing scale, large titles with native-stack, and iPad/landscape via `useWindowDimensions` instead of media queries. Web sibling: `/interfaces:better-layout`.
+
+```
+/sharqiewicz:rules-layout-mobile
+```
+
+**`rules-typography-mobile`** — type rules for **React Native**: Dynamic Type (`allowFontScaling`, `maxFontSizeMultiplier`, `dynamicTypeRamp`), Apple's text-style table, the system font, tabular numbers, `numberOfLines` truncation, and custom fonts via `expo-font`. Web sibling: `/interfaces:better-typography`.
+
+```
+/sharqiewicz:rules-typography-mobile
+```
+
+**`rules-color-mobile`** — color rules for **React Native**: design in OKLCH but commit hex (RN doesn't document `oklch()`), iOS semantic colors via `PlatformColor`, `DynamicColorIOS` for light/dark and high contrast, Apple's contrast thresholds, and theme tokens. Web siblings: `/interfaces:better-colors`, `/oklch-skill`.
+
+```
+/sharqiewicz:rules-color-mobile
+```
+
+**`rules-accessibility-mobile`** — VoiceOver rules for **React Native**: roles, labels, hints, state and value, custom actions, announcements, modal focus traps, focus order, 44pt targets with `hitSlop`, and testing with VoiceOver and Accessibility Inspector. Explains why ARIA and `tabindex` habits don't carry over. Web sibling: `/interfaces:better-accessibility`.
+
+```
+/sharqiewicz:rules-accessibility-mobile
+```
+
+**`rules-polish-mobile`** — the details that make a **React Native** app feel native: `Pressable` press states and scale, continuous corners, concentric radius, `boxShadow` vs `shadow*`, hairline borders, haptics chosen by Apple's guidance, image placeholders, and optimistic UI. Web siblings: `/interfaces:better-ui`, `/make-interfaces-feel-better`.
+
+```
+/sharqiewicz:rules-polish-mobile
+```
+
+**`rules-design-engineering-mobile`** — craft for **React Native** engineers: respond on press-in, forms that fill themselves (`textContentType`, `autoComplete`, `submitBehavior`, focus chaining), touch instead of hover, interruptible interactions, native-stack presentations, and list choices. Web siblings: `/emil-design-eng`, `/emil-design-engineering`.
+
+```
+/sharqiewicz:rules-design-engineering-mobile
+```
+
+**`rules-gestures-mobile`** — gesture rules for **React Native**: gesture-handler (hook API first, older builder API mapped), gesture composition and scroll conflicts, `withDecay` with clamp and rubber-banding, velocity hand-off into springs, snap points, native sheets before sheet libraries, and haptics at thresholds. Includes `recipes.md`. Web sibling: `/gesture-ui`.
+
+```
+/sharqiewicz:rules-gestures-mobile
+```
+
+**`rules-reduced-motion-mobile`** — Reduce Motion in **React Native**: what Reanimated already handles (`ReduceMotion.System` is the default), what it doesn't (core `Animated`, `LayoutAnimation`, Lottie, autoplaying video), what to replace motion with instead of just removing it, and how to test it. Web sibling: `/animation-accessibility`.
+
+```
+/sharqiewicz:rules-reduced-motion-mobile
+```
+
+**`rules-animation-performance-mobile`** — animation performance for **React Native**: the JS and UI threads, worklets and shared values, cheap vs layout-triggering props, layout animation cost, lists and images during motion, and how to measure with Perf Monitor, Instruments and release builds (`measuring.md`). Web sibling: `/animation-performance`.
+
+```
+/sharqiewicz:rules-animation-performance-mobile
 ```
 
 **`rules-react-state`** — expert guidance for React state management: Zustand, React Query, React Context, and XState. Categorises state as server, global client, injected, or event-driven, then picks the right tool for each.
@@ -130,6 +190,18 @@ On my own machine the repo is symlinked as `~/.claude/skills/sharqiewicz`, which
 /sharqiewicz:review-worst-case
 ```
 
+**`review-interface-mobile`** — audit **React Native** screens, a diff or a path against every `rules-*-mobile` skill plus `rules-apple-mobile`. Greps for the usual problems (hard-coded colors, unlabeled icon buttons, unscaled fonts, module-scope `Dimensions.get`, missing safe areas, web idioms), can take simulator screenshots, and returns P0–P3 findings with file:line, rule, fix and source skill. Read-only, manual-only. Web siblings: `/interfaces:interface-review`, `/web-interface-guidelines`.
+
+```
+/sharqiewicz:review-interface-mobile
+```
+
+**`review-animations-mobile`** — review the Reanimated and gesture-handler motion in a diff against ten mobile standards drawn from Apple's motion guidance and the Reanimated docs (springs for interactive motion, interruptible, velocity hand-off, UI thread only, Reduce Motion respected, no motion on high-frequency actions, and more). Returns APPROVE or REQUEST CHANGES with file:line findings. Read-only, manual-only. Web sibling: `/review-animations`.
+
+```
+/sharqiewicz:review-animations-mobile
+```
+
 ### make — produce an artifact
 
 **`make-skill`** — scaffolds a new skill from scratch, or audits an existing one against the canonical `SKILL.md` structure and fixes the gaps.
@@ -156,6 +228,24 @@ On my own machine the repo is symlinked as `~/.claude/skills/sharqiewicz`, which
 /sharqiewicz:make-skill-map
 ```
 
+**`make-animation-plan-mobile`** — for your most capable model: survey a **React Native** app's motion, audit it against `review-animations-mobile` and `rules-animation-performance-mobile`, and write one self-contained plan file per change (current code, exact Reanimated values, acceptance checks) that a cheaper model can carry out. Manual-only. Web sibling: `/improve-animations`.
+
+```
+/sharqiewicz:make-animation-plan-mobile
+```
+
+**`make-motion-brief-mobile`** — decide a **React Native** animation before building it, one question at a time with a recommended answer. The first real question is whether iOS already does this, which can end in "don't build". The brief covers trigger, properties, anchor, spring config, gesture hand-off, interruption, haptics, Reduce Motion and frequency. Manual-only. Web sibling: `/motion-brief`.
+
+```
+/sharqiewicz:make-motion-brief-mobile
+```
+
+**`make-prototype-mobile`** — build several variants of an animation or UI element on a dev-only **Expo Router** screen with a segmented-control switcher. The chosen variant lives in the URL, so a deep link reopens it, and the whole screen is gated on `__DEV__`. Includes cleanup of the losing variants. Manual-only. Web sibling: `/prototype` (Emil).
+
+```
+/sharqiewicz:make-prototype-mobile
+```
+
 ### In progress
 
 Drafts in `in-progress/` (gitignored, not in the plugin). Older versions of two of them are installed on my machine as plain folders: `rules-design-engineering` as `/emil-design-engineering` and `rules-motion-layout` as `/motion-layout-animations`.
@@ -168,7 +258,7 @@ Drafts in `in-progress/` (gitignored, not in the plugin). Older versions of two 
 <!-- generated from find-skill/map.md by find-skill/scan.py --readme; edit the map, not this block -->
 ## Skill map
 
-My curated preferences on top of the live list of installed skills: which **Lane** a skill lives in, which skill is the **Owner** of a job when several overlap, and which names are **Namesakes** or **Exceptions**. Each skill sits in exactly one lane, the one you would look in first. Commands are exact, namespace included. Skills that only run when invoked are marked `manual`. `-mobile` always means React Native + Expo on iOS, and has a web sibling with the same stem.
+My curated preferences on top of the live list of installed skills: which **Lane** a skill lives in, which skill is the **Owner** of a job when several overlap, and which names are **Namesakes** or **Exceptions**. Each skill sits in exactly one lane, the one you would look in first. Commands are exact, namespace included. Skills that only run when invoked are marked `manual`. `-mobile` always means React Native + Expo on iOS, and names its web sibling, which may be an external skill.
 
 Maintained by `/sharqiewicz:make-skill-map`, read by `/sharqiewicz:find-skill`. The README section is generated from this file.
 
@@ -221,6 +311,13 @@ Maintained by `/sharqiewicz:make-skill-map`, read by `/sharqiewicz:find-skill`. 
 | `/sharqiewicz:rules-apple-mobile` | Apple HIG for React Native + Expo iOS | Mobile sibling of rules-apple |
 | `/sharqiewicz:find-library` | Pick one library for a web task (React, Next, Tailwind) | manual. Owner of "which library". Overlaps `/pick-ui-library` |
 | `/sharqiewicz:find-library-mobile` | Pick one library for a React Native + Expo task | manual. Mobile sibling of find-library |
+| `/sharqiewicz:rules-layout-mobile` | Safe areas, keyboard, flexbox, adaptive layout in React Native | Mobile sibling of `/interfaces:better-layout` |
+| `/sharqiewicz:rules-typography-mobile` | Dynamic Type, text styles, system font in React Native | Mobile sibling of `/interfaces:better-typography` |
+| `/sharqiewicz:rules-color-mobile` | PlatformColor, DynamicColorIOS, dark mode, contrast in React Native | Mobile sibling of `/interfaces:better-colors` and `/oklch-skill` |
+| `/sharqiewicz:rules-accessibility-mobile` | VoiceOver roles, labels, focus, 44pt targets in React Native | Mobile sibling of `/interfaces:better-accessibility` |
+| `/sharqiewicz:rules-polish-mobile` | Press feedback, continuous corners, shadows, haptics in React Native | Mobile sibling of `/interfaces:better-ui` and `/make-interfaces-feel-better` |
+| `/sharqiewicz:rules-design-engineering-mobile` | Forms, touch, perceived speed, native presentation in React Native | Mobile sibling of `/emil-design-eng` and `/emil-design-engineering` |
+| `/sharqiewicz:review-interface-mobile` | Audit React Native screens against every rules-*-mobile skill | manual, read-only. Owner of "review this mobile UI". Mobile sibling of `/interfaces:interface-review` and `/web-interface-guidelines` |
 | `/pick-ui-library` | Pick UI and motion tools the animations.dev course trusts | Loses to find-library except for CSS vs WAAPI vs Motion vs GSAP |
 | `/shadcn` | Add, search, fix and style shadcn components | |
 | `/ask-sonner` | Sonner toast library guide | |
@@ -238,6 +335,14 @@ Maintained by `/sharqiewicz:make-skill-map`, read by `/sharqiewicz:find-skill`. 
 | `/animate-expo` | Animations in React Native + Expo | Owner of "motion on mobile". Web sibling: `/animate` |
 | `/sharqiewicz:find-animations` | Find places that should animate, reject the rest (web) | Read-only. Owner of "where should I add motion". Overlaps `/find-animation-opportunities` |
 | `/sharqiewicz:find-animations-mobile` | Same, for React Native + Expo iOS | Mobile sibling of find-animations |
+| `/sharqiewicz:rules-gestures-mobile` | gesture-handler + Reanimated drag, fling, decay, sheets | Mobile sibling of `/gesture-ui` |
+| `/sharqiewicz:rules-reduced-motion-mobile` | Reduce Motion in Reanimated, Animated, Lottie, video | Mobile sibling of `/animation-accessibility` |
+| `/sharqiewicz:rules-animation-performance-mobile` | JS vs UI thread, worklets, cheap props, profiling | Mobile sibling of `/animation-performance` |
+| `/sharqiewicz:fix-animation-mobile` | Find and fix why a React Native animation feels off or drops frames | manual. Owner of "my mobile animation is janky". Mobile sibling of `/debug-animation` |
+| `/sharqiewicz:review-animations-mobile` | Approve or reject Reanimated motion in a diff | manual, read-only. Mobile sibling of `/review-animations` |
+| `/sharqiewicz:make-animation-plan-mobile` | Audit an app's motion, write plans for cheaper models | manual. Mobile sibling of `/improve-animations` |
+| `/sharqiewicz:make-motion-brief-mobile` | Interview me about a mobile animation before building | manual. Mobile sibling of `/motion-brief` |
+| `/sharqiewicz:make-prototype-mobile` | Several variants behind a switcher on an Expo dev screen | manual. Mobile sibling of `/prototype` |
 | `/find-animation-opportunities` | Emil's version of find-animations | manual. Overlap; loses to find-animations |
 | `/review-animations` | Review animation code against the animations.dev bar | manual. Owner of "review my animations" |
 | `/improve-animations` | Audit motion and write implementation plans | manual. Plans for other agents; review-animations is the findings report |
@@ -249,7 +354,7 @@ Maintained by `/sharqiewicz:make-skill-map`, read by `/sharqiewicz:find-skill`. 
 | `/motion-react` | Motion for React (motion/react) | |
 | `/motion-layout-animations` | layout, layoutId, AnimatePresence, shared elements | Owner of layout animation inside Motion. Older installed copy of my draft `in-progress/rules-motion-layout` |
 | `/scroll-animations` | Scroll-triggered reveals and scroll-driven animation | |
-| `/gesture-ui` | Drag, swipe, sheets that track the finger | Web-first; principles transfer to mobile |
+| `/gesture-ui` | Drag, swipe, sheets that track the finger | Web. Mobile sibling: `/sharqiewicz:rules-gestures-mobile` |
 | `/motion-brief` | Interview me about an animation before building | Plan-like but motion-specific, so it lives here |
 
 ### Code quality — how the code holds up

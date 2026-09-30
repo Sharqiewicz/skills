@@ -35,7 +35,7 @@ You get: `SectionList` grouped style, native `Switch` in rows, the App-Store-req
 ```
 /rules-apple-mobile review src/screens/Checkout.tsx against Apple's HIG for iOS
 ```
-Typical flags: permission requested in a root `useEffect` instead of at point of use · missing `Info.plist` purpose string · destructive button styled as primary · sub-44pt icon target with no `hitSlop` · Reanimated animation with no `ReduceMotion` config · social login present but no Sign in with Apple · `Alert.alert` used for a routine "Saved!" toast.
+Typical flags: permission requested in a root `useEffect` instead of at point of use · missing `Info.plist` purpose string · destructive button styled as primary · sub-44pt icon target with no `hitSlop` · `ReduceMotion.Never` or a Lottie loop with no Reduce Motion branch · social login present but no Sign in with Apple · `Alert.alert` used for a routine "Saved!" toast.
 
 ## Pairs with
 

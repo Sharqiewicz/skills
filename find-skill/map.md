@@ -1,6 +1,6 @@
 # Skill map
 
-My curated preferences on top of the live list of installed skills: which **Lane** a skill lives in, which skill is the **Owner** of a job when several overlap, and which names are **Namesakes** or **Exceptions**. Each skill sits in exactly one lane, the one you would look in first. Commands are exact, namespace included. Skills that only run when invoked are marked `manual`. `-mobile` always means React Native + Expo on iOS, and has a web sibling with the same stem.
+My curated preferences on top of the live list of installed skills: which **Lane** a skill lives in, which skill is the **Owner** of a job when several overlap, and which names are **Namesakes** or **Exceptions**. Each skill sits in exactly one lane, the one you would look in first. Commands are exact, namespace included. Skills that only run when invoked are marked `manual`. `-mobile` always means React Native + Expo on iOS, and names its web sibling, which may be an external skill.
 
 Maintained by `/sharqiewicz:make-skill-map`, read by `/sharqiewicz:find-skill`. The README section is generated from this file.
 
@@ -53,6 +53,13 @@ Maintained by `/sharqiewicz:make-skill-map`, read by `/sharqiewicz:find-skill`. 
 | `/sharqiewicz:rules-apple-mobile` | Apple HIG for React Native + Expo iOS | Mobile sibling of rules-apple |
 | `/sharqiewicz:find-library` | Pick one library for a web task (React, Next, Tailwind) | manual. Owner of "which library". Overlaps `/pick-ui-library` |
 | `/sharqiewicz:find-library-mobile` | Pick one library for a React Native + Expo task | manual. Mobile sibling of find-library |
+| `/sharqiewicz:rules-layout-mobile` | Safe areas, keyboard, flexbox, adaptive layout in React Native | Mobile sibling of `/interfaces:better-layout` |
+| `/sharqiewicz:rules-typography-mobile` | Dynamic Type, text styles, system font in React Native | Mobile sibling of `/interfaces:better-typography` |
+| `/sharqiewicz:rules-color-mobile` | PlatformColor, DynamicColorIOS, dark mode, contrast in React Native | Mobile sibling of `/interfaces:better-colors` and `/oklch-skill` |
+| `/sharqiewicz:rules-accessibility-mobile` | VoiceOver roles, labels, focus, 44pt targets in React Native | Mobile sibling of `/interfaces:better-accessibility` |
+| `/sharqiewicz:rules-polish-mobile` | Press feedback, continuous corners, shadows, haptics in React Native | Mobile sibling of `/interfaces:better-ui` and `/make-interfaces-feel-better` |
+| `/sharqiewicz:rules-design-engineering-mobile` | Forms, touch, perceived speed, native presentation in React Native | Mobile sibling of `/emil-design-eng` and `/emil-design-engineering` |
+| `/sharqiewicz:review-interface-mobile` | Audit React Native screens against every rules-*-mobile skill | manual, read-only. Owner of "review this mobile UI". Mobile sibling of `/interfaces:interface-review` and `/web-interface-guidelines` |
 | `/pick-ui-library` | Pick UI and motion tools the animations.dev course trusts | Loses to find-library except for CSS vs WAAPI vs Motion vs GSAP <!-- find-library is opinionated to my stack; pick-ui-library is Emil's spine of the same list --> |
 | `/shadcn` | Add, search, fix and style shadcn components | |
 | `/ask-sonner` | Sonner toast library guide | |
@@ -70,6 +77,14 @@ Maintained by `/sharqiewicz:make-skill-map`, read by `/sharqiewicz:find-skill`. 
 | `/animate-expo` | Animations in React Native + Expo | Owner of "motion on mobile". Web sibling: `/animate` |
 | `/sharqiewicz:find-animations` | Find places that should animate, reject the rest (web) | Read-only. Owner of "where should I add motion". Overlaps `/find-animation-opportunities` <!-- my skill, same job, same Emil source; Emil's version is manual-only --> |
 | `/sharqiewicz:find-animations-mobile` | Same, for React Native + Expo iOS | Mobile sibling of find-animations |
+| `/sharqiewicz:rules-gestures-mobile` | gesture-handler + Reanimated drag, fling, decay, sheets | Mobile sibling of `/gesture-ui` |
+| `/sharqiewicz:rules-reduced-motion-mobile` | Reduce Motion in Reanimated, Animated, Lottie, video | Mobile sibling of `/animation-accessibility` |
+| `/sharqiewicz:rules-animation-performance-mobile` | JS vs UI thread, worklets, cheap props, profiling | Mobile sibling of `/animation-performance` |
+| `/sharqiewicz:fix-animation-mobile` | Find and fix why a React Native animation feels off or drops frames | manual. Owner of "my mobile animation is janky". Mobile sibling of `/debug-animation` |
+| `/sharqiewicz:review-animations-mobile` | Approve or reject Reanimated motion in a diff | manual, read-only. Mobile sibling of `/review-animations` |
+| `/sharqiewicz:make-animation-plan-mobile` | Audit an app's motion, write plans for cheaper models | manual. Mobile sibling of `/improve-animations` |
+| `/sharqiewicz:make-motion-brief-mobile` | Interview me about a mobile animation before building | manual. Mobile sibling of `/motion-brief` |
+| `/sharqiewicz:make-prototype-mobile` | Several variants behind a switcher on an Expo dev screen | manual. Mobile sibling of `/prototype` |
 | `/find-animation-opportunities` | Emil's version of find-animations | manual. Overlap; loses to find-animations |
 | `/review-animations` | Review animation code against the animations.dev bar | manual. Owner of "review my animations" |
 | `/improve-animations` | Audit motion and write implementation plans | manual. Plans for other agents; review-animations is the findings report |
@@ -81,7 +96,7 @@ Maintained by `/sharqiewicz:make-skill-map`, read by `/sharqiewicz:find-skill`. 
 | `/motion-react` | Motion for React (motion/react) | |
 | `/motion-layout-animations` | layout, layoutId, AnimatePresence, shared elements | Owner of layout animation inside Motion. Older installed copy of my draft `in-progress/rules-motion-layout` |
 | `/scroll-animations` | Scroll-triggered reveals and scroll-driven animation | |
-| `/gesture-ui` | Drag, swipe, sheets that track the finger | Web-first; principles transfer to mobile |
+| `/gesture-ui` | Drag, swipe, sheets that track the finger | Web. Mobile sibling: `/sharqiewicz:rules-gestures-mobile` |
 | `/motion-brief` | Interview me about an animation before building | Plan-like but motion-specific, so it lives here |
 
 ## Code quality — how the code holds up

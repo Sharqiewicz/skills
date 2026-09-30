@@ -34,7 +34,7 @@ That's why several answers are *"no library"*: a `formSheet` screen instead of a
 
 ## What it catches
 
-Typical flags on an existing codebase: auth tokens in AsyncStorage (a security bug, not a style note) · `FlatList` blanking on long lists · a `PanResponder` bottom sheet · `KeyboardAvoidingView` with per-platform offset hacks · the JS `stack` navigator · `Animated` driving a gesture · a Reanimated animation with no `ReduceMotion` config · subscriptions billed through Stripe instead of StoreKit.
+Typical flags on an existing codebase: auth tokens in AsyncStorage (a security bug, not a style note) · `FlatList` blanking on long lists · a `PanResponder` bottom sheet · `KeyboardAvoidingView` with per-platform offset hacks · the JS `stack` navigator · `Animated` driving a gesture · a Lottie loop that ignores Reduce Motion · subscriptions billed through Stripe instead of StoreKit.
 
 ## Pairs with
 

@@ -92,7 +92,7 @@ NativeWind is the reasonable deviation, not a mistake — pick it when the team'
 
 Reanimated is the engine; Moti is the ergonomic layer for the common cases (fade in, slide up, presence). Use Moti when you'd otherwise write ten lines of `useSharedValue` + `withTiming` for a fade.
 
-**Never use the built-in `Animated` API for anything gesture-driven** — it runs on the JS thread and drops frames under load. And Reduce Motion is not automatic in Reanimated the way it is in CSS: pass `reduceMotion: ReduceMotion.System` per animation.
+**Never use the built-in `Animated` API for anything gesture-driven** — it runs on the JS thread and drops frames under load. Reanimated's animation functions follow Reduce Motion by default (`ReduceMotion.System`) [Reanimated: withTiming](https://docs.swmansion.com/react-native-reanimated/docs/animations/withTiming); core `Animated`, `LayoutAnimation` and Lottie don't.
 
 ## State, data & storage
 
@@ -165,7 +165,7 @@ OTA updates ship JS and assets only. Anything touching native code — a new Exp
 - **AsyncStorage used as the app's entire data layer** → MMKV for KV, expo-sqlite for anything relational.
 - **`KeyboardAvoidingView` from `react-native` with per-platform offset hacks** → `react-native-keyboard-controller`.
 - **`Animated` from `react-native` driving a gesture** → Reanimated + gesture-handler.
-- **A Reanimated animation with no `ReduceMotion` config** → accessibility bug; Reduce Motion is opt-in here.
+- **`ReduceMotion.Never`, or core `Animated`/Lottie with no Reduce Motion branch** → accessibility bug.
 - **`react-native-vector-icons` for iOS system-looking icons** → `expo-symbols`.
 - **The JS `stack` navigator** → `native-stack`.
 - **`useEffect` + `fetch` + `setLoading`** → TanStack Query, especially with backgrounding and flaky networks in play.

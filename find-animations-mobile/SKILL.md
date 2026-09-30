@@ -15,7 +15,7 @@ Before judging a single candidate:
 
 1. **Confirm the motion stack** — `react-native-reanimated` + `react-native-gesture-handler` present? Legacy `Animated`/`PanResponder`/`LayoutAnimation` in use? A JS-thread animation stack is itself a finding.
 2. **Check navigation** — `@react-navigation/native-stack` (native, correct transitions) or the JS `stack` navigator (worse, and a finding)? Note which screens set `gestureEnabled: false`.
-3. **Grep for `ReduceMotion`** — `reduceMotion:`, `useReducedMotion`, `isReduceMotionEnabled`. **RN does NOT auto-suppress motion the way CSS does.** Zero hits across a Reanimated codebase is a mandatory finding, reported ahead of any new suggestion.
+3. **Grep for `ReduceMotion`** — `reduceMotion:`, `useReducedMotion`, `isReduceMotionEnabled`. Reanimated's `withTiming`/`withSpring`/`withDecay` default to `ReduceMotion.System` ([Reanimated: withTiming](https://docs.swmansion.com/react-native-reanimated/docs/animations/withTiming)), but core `Animated`, `LayoutAnimation`, Lottie and autoplaying video don't check the setting. Any of those without an `isReduceMotionEnabled`/`useReducedMotion` branch, or any explicit `ReduceMotion.Never`, is a mandatory finding, reported ahead of any new suggestion.
 4. **Find existing spring configs** — grep `withSpring`, `withTiming`, `withDecay`, `dampingRatio`, `duration:`. Suggestions extend the app's existing config vocabulary, not a parallel one.
 5. **Build a rough frequency map** — on mobile, tab switches and list scrolling are the 100+/day surfaces. You cannot answer gate question 1 without this.
 
@@ -118,7 +118,7 @@ Decoration on functional, information-dense UI hinders. **Add a mobile clause: d
 
 **Accessibility gaps that read as motion bugs**
 - Swipe-to-delete as the only path to an action → breaks VoiceOver/Switch Control; needs a visible fallback
-- Any Reanimated animation without `reduceMotion: ReduceMotion.System`
+- `ReduceMotion.Never`, or core `Animated`/`LayoutAnimation`/Lottie with no Reduce Motion branch
 
 **The delight budget**
 - Rare, high-emotion moments rendered flat — first-run, empty states, purchase/success, streak completion. The only places bounce (`dampingRatio` ~0.8), generous stagger, or a longer beat are welcome.
@@ -139,7 +139,7 @@ Use the app's own configs when they exist. When they don't:
 
 Use the **duration-based `withSpring`** (`duration` + `dampingRatio`), which maps to Apple's response + damping almost verbatim. Damping `1.0` is critical (no bounce) and is the default; bounce (`0.8`) is earned **only when the gesture carried momentum**. Never mix physics params (`stiffness`, `mass`) with duration params in one config.
 
-**IMPORTANT**: Animate `transform` and `opacity` only. **Every suggestion must specify `reduceMotion: ReduceMotion.System`** (or `.reduceMotion()` on a layout preset) — shipping Reanimated with zero Reduce Motion config is the single most common HIG violation in React Native, and a recipe that omits it is incomplete.
+**IMPORTANT**: Animate `transform` and `opacity` only. **Every suggestion must say what happens under Reduce Motion.** Reanimated animation functions default to `ReduceMotion.System` (disabled when the setting is on), so name the replacement when "disabled" is wrong, e.g. a crossfade instead of a slide. Never suggest `ReduceMotion.Never`.
 
 ## Workflow
 
@@ -157,8 +157,8 @@ One row per surviving suggestion, ordered by leverage:
 
 | # | Location | Today | Purpose | Frequency | Suggested motion |
 | --- | --- | --- | --- | --- | --- |
-| 1 | `CartSheet.tsx:60` | `PanResponder` + `Animated.timing`, snaps home at a fixed 300ms regardless of flick speed | Spatial consistency | Occasional | RNGH `Gesture.Pan()` + shared value; on end `withDecay({ velocity: e.velocityY, deceleration: 0.998, clamp: [0, H], rubberBandEffect: true, reduceMotion: ReduceMotion.System })` |
-| 2 | `PrimaryButton.tsx:22` | `TouchableOpacity` fade only, no haptic on submit | Feedback | Tens/day | `withTiming(0.97, { duration: 120, reduceMotion: ReduceMotion.System })` on `onPressIn`; `Haptics.notificationAsync(Success)` on the commit, not the tap |
+| 1 | `CartSheet.tsx:60` | `PanResponder` + `Animated.timing`, snaps home at a fixed 300ms regardless of flick speed | Spatial consistency | Occasional | RNGH `Gesture.Pan()` + shared value; on end `withDecay({ velocity: e.velocityY, deceleration: 0.998, clamp: [0, H], rubberBandEffect: true })` |
+| 2 | `PrimaryButton.tsx:22` | `TouchableOpacity` fade only, no haptic on submit | Feedback | Tens/day | `withTiming(0.97, { duration: 120 })` on `onPressIn`; `Haptics.notificationAsync(Success)` on the commit, not the tap |
 
 Every "Suggested motion" cell carries **exact values** — the API, the config, the properties.
 
@@ -180,9 +180,9 @@ One short paragraph: how much motion this app actually needs, whether it's alrea
 - Edit, refactor, or implement anything — this skill is read-only, always
 - Propose motion for a system-owned transition (native-stack push, edge-swipe back, sheet detents, tab switch, `RefreshControl`, native alerts)
 - Suggest a JS-thread animation (`Animated.timing`, `PanResponder`, `LayoutAnimation`) — RNGH + Reanimated on the UI thread, or nothing
-- Write a recipe without `reduceMotion: ReduceMotion.System` — RN does not suppress motion automatically
+- Write a recipe without its Reduce Motion behavior, or with `ReduceMotion.Never`
 - Suggest firing haptics inside `onUpdate` or on tap-down; haptics fire on the causal event only
-- Suggest `runOnJS` inside a gesture's `onUpdate` — it reintroduces bridge latency
+- Suggest `runOnJS` (Reanimated 3) or `scheduleOnRN` (Reanimated 4) inside a gesture's `onUpdate` — a per-frame hop to the JS thread brings the latency back
 - Suggest entrance animations on a primary scroll surface or main feed
 - Approximate a value ("a quick spring", "a subtle fade") — every recipe names the API and config
 - Mix physics params (`stiffness`, `mass`) with duration params in one spring config

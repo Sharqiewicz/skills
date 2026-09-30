@@ -17,7 +17,7 @@ Purpose · Agency · Responsibility · Familiarity · Flexibility · Simplicity 
 
 1. **Interactive targets ≥ 44×44pt** (28pt floor); ~12pt spacing around bezeled controls, ~24pt around icon-only. → `hitSlop` or `minWidth/minHeight: 44` on `Pressable`.
 2. **Contrast 4.5:1** body / **3:1** large-or-bold; aim **7:1** for custom small text; test light *and* dark. `PlatformColor`/`DynamicColorIOS`, not hardcoded hex.
-3. **Obey the system, don't rebuild it** — `prefers`-style settings come from the OS: `useColorScheme()`, `AccessibilityInfo.isReduceMotionEnabled()`/`isReduceTransparencyEnabled()`, `allowFontScaling` (leave on). No redundant in-app toggles. **Reduce Motion is NOT automatic in RN — opt in per animation** (`reduceMotion: ReduceMotion.System`).
+3. **Obey the system, don't rebuild it** — `prefers`-style settings come from the OS: `useColorScheme()`, `AccessibilityInfo.isReduceMotionEnabled()`/`isReduceTransparencyEnabled()`, `allowFontScaling` (leave on). No redundant in-app toggles. **Reduce Motion is only partly automatic in RN**: Reanimated's animation functions default to `ReduceMotion.System`, but core `Animated`, `LayoutAnimation`, Lottie and video don't check it, and "disabled" is not always the right replacement.
 4. **Never encode meaning in one channel** (color/motion/haptic alone) — pair with icon + text; announce status via `AccessibilityInfo.announceForAccessibility()`.
 
 ## Mobile ergonomics (the iPhone mindset)

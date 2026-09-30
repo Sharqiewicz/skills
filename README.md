@@ -55,6 +55,12 @@ The whole repo is one Claude Code plugin (`.claude-plugin/plugin.json`). On my m
 /find-library-mobile
 ```
 
+**`find-skill`** — ask which installed skill fits a job: `/sharqiewicz:find-skill <what you want to do>`. Answers with exactly one skill to use, up to two complements, and the likely wrong picks (namesakes, web vs mobile twins, skills that lost an overlap), each with its exact namespaced command. Reads the curated `find-skill/map.md` plus a live scan of everything installed (`scan.py`), flags unmapped skills, and falls back to Vercel's `/find-skills` when nothing installed fits. Read-only and manual-only.
+
+```
+/find-skill
+```
+
 ### fix — diagnose and repair
 
 **`fix-z-index`** — diagnostic decision tree for z-index, stacking context, and overlay bugs. Almost every "z-index doesn't work" issue traces to one of five root causes encoded in the tree.
@@ -135,6 +141,12 @@ npx skills add sharqiewicz/skills/make-commit-plan
 npx skills add sharqiewicz/skills/make-ticket
 ```
 
+**`make-skill-map`** — keeps the skill map current. Finds installed skills the map doesn't mention yet and entries for skills that are gone, proposes a lane and owner for each, shows the diff, and only after approval writes `find-skill/map.md` and regenerates the Skill map section of this README. Depends on `find-skill/scan.py`. Manual-only.
+
+```
+/make-skill-map
+```
+
 ### In progress
 
 Not yet installed — see `in-progress/`.
@@ -142,6 +154,179 @@ Not yet installed — see `in-progress/`.
 - **`rules-design-engineering`** — design engineering principles for polished, accessible, performant web interfaces: animation, forms, touch, color, typography, audio feedback, accessibility, Tailwind state cascading.
 - **`rules-motion-layout`** — Motion (Framer Motion successor) layout animations: `layout`, `layoutId`, shared element transitions, `AnimatePresence`, `LayoutGroup`, scale correction.
 - **`rules-web-patterns`** — architecture, rendering, and performance patterns from patterns.dev.
+
+<!-- skill-map:start -->
+<!-- generated from find-skill/map.md by find-skill/scan.py --readme; edit the map, not this block -->
+## Skill map
+
+My curated preferences on top of the live list of installed skills: which **Lane** a skill lives in, which skill is the **Owner** of a job when several overlap, and which names are **Namesakes** or **Exceptions**. Each skill sits in exactly one lane, the one you would look in first. Commands are exact, namespace included. Skills that only run when invoked are marked `manual`. `-mobile` always means React Native + Expo on iOS, and has a web sibling with the same stem.
+
+Maintained by `/sharqiewicz:make-skill-map`, read by `/sharqiewicz:find-skill`. The README section is generated from this file.
+
+### Plan — think before building
+
+| Skill | Job | Notes |
+|---|---|---|
+| `/mattpocock-skills:grill-me` | Interview me until a plan or design is sharp | manual. Owner of "stress-test my plan". Its auto-invoked twin is `/mattpocock-skills:grilling` |
+| `/mattpocock-skills:grilling` | Same interview, model-invoked | Twin of grill-me |
+| `/mattpocock-skills:grill-with-docs` | Interview that also writes ADRs and glossary | manual. Owner when the project keeps CONTEXT.md and docs/adr |
+| `/mattpocock-skills:to-spec` | Turn the conversation into a spec on the issue tracker | manual. Owner of "write the spec" |
+| `/mattpocock-skills:to-tickets` | Break a spec into tracer-bullet tickets | manual. Complements make-ticket flow C |
+| `/sharqiewicz:make-ticket` | GitHub Issue, PRD, or tracer-bullet issues | Owner of GitHub Issues and User Stories. |
+| `/mattpocock-skills:implement` | Build from a spec or tickets | manual. Runs after to-spec / to-tickets |
+| `/mattpocock-skills:wayfinder` | Plan work bigger than one session as a map of decisions | manual |
+| `/mattpocock-skills:research` | Investigate a question against primary sources, write findings | Owner of "research this" |
+| `/mattpocock-skills:domain-modeling` | Pin down domain terms and model | |
+| `/mattpocock-skills:codebase-design` | Vocabulary for designing deep modules | |
+| `/mattpocock-skills:prototype` | Throwaway prototype to answer a design question | Namesake of `/prototype` (Emil, in Design UI). Both kept; the namespace tells them apart |
+| `/mattpocock-skills:to-questionnaire` | Turn an undecided question into a questionnaire for someone else | manual |
+| `/mattpocock-skills:teach` | Teach me a concept or skill | manual |
+| `/mattpocock-skills:loop-me` | Grill me about specs for workflows I want to build | manual |
+| `/mattpocock-skills:triage` | Move issues and PRs through triage roles | manual |
+| `/mattpocock-skills:wait-what` | Re-pitch the last message that did not land | manual |
+| `/claude-mem:make-plan` | Phased implementation plan with doc discovery | Plan for execution, not an interview. Runs into `/claude-mem:do` |
+| `/claude-mem:do` | Execute a phased plan with subagents | Pair of make-plan. `/mattpocock-skills:implement` owns spec-driven builds |
+
+### Design UI — how it looks and reads
+
+| Skill | Job | Notes |
+|---|---|---|
+| `/impeccable:impeccable` | Design, critique, audit, polish, typeset, distill any frontend UI (24 commands: `/impeccable:impeccable <command>`) | Owner of "design distinctive UI". Anthropic's frontend-design was removed in its favour |
+| `/interfaces:better-ui` | Polish details: radius, optical alignment, shadows, micro-interactions | Owner of "polish small UI details" |
+| `/interfaces:better-layout` | Grouping, alignment, reading order, progressive disclosure | |
+| `/interfaces:better-typography` | Type scale, spacing, fonts, wrapping | |
+| `/interfaces:better-colors` | Color system, OKLCH, contrast | Owner of color. Overlaps `/oklch-skill` |
+| `/interfaces:better-accessibility` | Focus, keyboard, ARIA, WCAG | |
+| `/interfaces:better-writing` | Interface copy, errors, empty states | |
+| `/interfaces:better-interface` | All better-* in one review | Auto-invoked combo of the six above |
+| `/interfaces:interface-review` | Multi-category UI review with findings | manual. Owner of "review this UI across categories" |
+| `/interfaces:explain-interface` | Figure out how something on the web was built | manual |
+| `/interfaces:break` | Render a component in every state and stress it | manual. Code-side stress test: `/sharqiewicz:review-worst-case` (Code quality) |
+| `/interfaces:variant` | Build several variants of a component, pick one | manual. Overlaps `/prototype` |
+| `/prototype` | Several different versions of a UI piece behind a switcher | manual. Owner of "try several UI variants". Namesake of `/mattpocock-skills:prototype` (Matt, in Plan) |
+| `/make-interfaces-feel-better` | Older version of better-ui | Loses to `/interfaces:better-ui` |
+| `/oklch-skill` | OKLCH conversions, palettes, Tailwind v4 theming | Loses to `/interfaces:better-colors` |
+| `/emil-design-eng` | Emil's philosophy on polish and invisible details | Taste reference; complements better-ui |
+| `/emil-design-engineering` | Design engineering rules for forms, touch, performance | animations.dev folder copy; overlaps emil-design-eng |
+| `/sharqiewicz:rules-apple` | Apple HIG translated to web CSS/HTML/React | Web sibling of rules-apple-mobile |
+| `/sharqiewicz:rules-apple-mobile` | Apple HIG for React Native + Expo iOS | Mobile sibling of rules-apple |
+| `/sharqiewicz:find-library` | Pick one library for a web task (React, Next, Tailwind) | manual. Owner of "which library". Overlaps `/pick-ui-library` |
+| `/sharqiewicz:find-library-mobile` | Pick one library for a React Native + Expo task | manual. Mobile sibling of find-library |
+| `/pick-ui-library` | Pick UI and motion tools the animations.dev course trusts | Loses to find-library except for CSS vs WAAPI vs Motion vs GSAP |
+| `/shadcn` | Add, search, fix and style shadcn components | |
+| `/ask-sonner` | Sonner toast library guide | |
+| `/userinterface-wiki` | UI/UX best-practice findings by file:line | Reference; overlaps the better-* set, use as a second opinion |
+| `/vocabulary` | Exact design and UI terms for a loose idea | Owner of "what is this design thing called". Motion terms: `/animation-vocabulary` |
+| `/web-interface-guidelines` | Review UI code against Vercel's guidelines | Command in ~/.claude/commands |
+| `/extract-component` | Extract inline JSX into named components | Command in ~/.claude/commands, Vortex conventions |
+| `/write-swift` | Write modern Swift (value types, Swift 6 concurrency) | Native iOS; not React Native |
+
+### Motion — how it moves
+
+| Skill | Job | Notes |
+|---|---|---|
+| `/animate` | Design and build web animations (Emil / animations.dev) | Owner of "add a web animation". Mobile sibling: `/animate-expo`. Real folder overwrote Emil's npx copy |
+| `/animate-expo` | Animations in React Native + Expo | Owner of "motion on mobile". Web sibling: `/animate` |
+| `/sharqiewicz:find-animations` | Find places that should animate, reject the rest (web) | Read-only. Owner of "where should I add motion". Overlaps `/find-animation-opportunities` |
+| `/sharqiewicz:find-animations-mobile` | Same, for React Native + Expo iOS | Mobile sibling of find-animations |
+| `/find-animation-opportunities` | Emil's version of find-animations | manual. Overlap; loses to find-animations |
+| `/review-animations` | Review animation code against the animations.dev bar | manual. Owner of "review my animations" |
+| `/improve-animations` | Audit motion and write implementation plans | manual. Plans for other agents; review-animations is the findings report |
+| `/debug-animation` | Name the exact cause of an animation that feels off | Owner of "my animation is janky or wrong" |
+| `/animation-performance` | Frame budget, composite-only properties | Reference for 60fps |
+| `/animation-accessibility` | prefers-reduced-motion variants | Reference for reduced motion |
+| `/animation-vocabulary` | Name a motion effect from a vague description | Owner of motion terms. General design terms: `/vocabulary` |
+| `/css-animations` | CSS-only transitions, keyframes, transforms | |
+| `/motion-react` | Motion for React (motion/react) | |
+| `/motion-layout-animations` | layout, layoutId, AnimatePresence, shared elements | Owner of layout animation inside Motion |
+| `/scroll-animations` | Scroll-triggered reveals and scroll-driven animation | |
+| `/gesture-ui` | Drag, swipe, sheets that track the finger | Web-first; principles transfer to mobile |
+| `/motion-brief` | Interview me about an animation before building | Plan-like but motion-specific, so it lives here |
+
+### Code quality — how the code holds up
+
+| Skill | Job | Notes |
+|---|---|---|
+| `/mattpocock-skills:tdd` | Test-first development | Owner of "build test-first" |
+| `/mattpocock-skills:diagnosing-bugs` | Diagnosis loop for hard bugs and regressions | Owner of "find the root cause of a bug" |
+| `/mattpocock-skills:code-review` | Review changes since a fixed point on two axes | Owner of "review my changes". Namesake of `/code-review` (my Vortex command, below) |
+| `/code-review` | Review changed files for React, TypeScript and Vortex conventions | Command in ~/.claude/commands. Namesake of the Matt plugin skill; Vortex repos only |
+| `/mattpocock-skills:improve-codebase-architecture` | Find deepening opportunities, render an HTML report | manual |
+| `/improve:improve` | Senior-advisor codebase survey; writes plans for other agents | Owner of "what should I improve in this codebase". Read-only on source |
+| `/react-doctor` | Diagnose and fix React codebase health | Owner of React health and performance |
+| `/sharqiewicz:review-effects` | When to use useEffect and what replaces it | |
+| `/sharqiewicz:review-cognitive-load` | Extraneous complexity and simplifications | |
+| `/sharqiewicz:review-worst-case` | Break the app with worst-case inputs, report evidence | |
+| `/sharqiewicz:rules-react-state` | Zustand, React Query, Context, XState | |
+| `/sharqiewicz:rules-web-security` | XSS, CSP, CORS, cookies, JWT, OAuth for React and Next | |
+| `/sharqiewicz:fix-z-index` | Fix z-index and stacking-context bugs | |
+| `/mattpocock-skills:setup-ts-deep-modules` | dependency-cruiser so each package is a deep module | manual |
+| `/mattpocock-skills:migrate-to-shoehorn` | Replace `as` assertions in tests | |
+| `/solidity-auditor` | Solidity security audit | Command in ~/.claude/commands |
+
+### Git & handoff — getting work out
+
+| Skill | Job | Notes |
+|---|---|---|
+| `/sharqiewicz:rules-git` | Branching, commits, rebase, tags | Reference |
+| `/sharqiewicz:make-commit-plan` | Propose commit groups and messages; runs no mutating git | Owner of "what should I commit" |
+| `/mattpocock-skills:resolving-merge-conflicts` | Resolve an in-progress merge or rebase conflict | |
+| `/mattpocock-skills:handoff` | Compact the conversation into a document for another agent | manual. Owner of "hand off this work" |
+| `/mattpocock-skills:claude-handoff` | Hand off to a fresh background agent | manual |
+| `/mattpocock-skills:setup-pre-commit` | Husky, lint-staged, type checks | |
+| `/mattpocock-skills:git-guardrails-claude-code` | Hooks that block dangerous git commands | |
+
+### SEO — search visibility
+
+| Skill | Job | Notes |
+|---|---|---|
+| `/seo` | Entry point: comprehensive SEO analysis, routes to the rest | Owner when the ask is just "SEO" |
+| `/seo-audit`, `/seo-page`, `/seo-technical` | Full site audit, single page, technical audit | Audit family |
+| `/seo-content`, `/seo-content-brief`, `/seo-cluster`, `/seo-plan` | Content quality, briefs, topic clusters, strategy | Content and planning family |
+| `/seo-schema`, `/seo-sitemap`, `/seo-hreflang`, `/seo-images`, `/seo-image-gen` | Structured data, sitemaps, international, images | On-page assets |
+| `/seo-geo`, `/seo-sxo`, `/seo-programmatic`, `/seo-competitor-pages`, `/seo-ecommerce`, `/seo-local`, `/seo-maps` | AI search, SERP fit, scale pages, vs-pages, shops, local | Specialties |
+| `/seo-backlinks`, `/seo-drift`, `/seo-flow`, `/seo-unlighthouse`, `/seo-firecrawl` | Links, drift monitoring, FLOW framework, Lighthouse, crawling | Monitoring and tooling |
+| `/seo-ahrefs`, `/seo-bing`, `/seo-dataforseo`, `/seo-google`, `/seo-profound`, `/seo-seranking` | Data providers (need API keys or MCP) | Extensions |
+
+### Tools — integrations and meta
+
+| Skill | Job | Notes |
+|---|---|---|
+| `/sharqiewicz:find-skill` | Which installed skill fits this job | manual, read-only. Owner of "which of my skills" |
+| `/sharqiewicz:make-skill-map` | Keep this map current and regenerate the README block | manual. Only writer of map.md |
+| `/sharqiewicz:make-skill` | Scaffold or audit a skill | |
+| `/find-skills` | Search skills.sh for new skills to install | Vercel, installed via npx. Finds skills I do not have yet |
+| `/mattpocock-skills:ask-matt` | Which of Matt's skills fits | manual. Only covers his set; find-skill covers everything |
+| `/mattpocock-skills:writing-for-agents` | Write skills, AGENTS.md, agent docs | |
+| `/mattpocock-skills:setup-matt-pocock-skills` | Configure a repo for Matt's skills | manual |
+| `/mattpocock-skills:wizard` | Interactive bash wizard for human-only steps | |
+| `/mattpocock-skills:scaffold-exercises` | Exercise directory structures | |
+| `/mattpocock-skills:writing-fragments`, `/mattpocock-skills:writing-beats`, `/mattpocock-skills:writing-shape` | Writing pipeline: fragments, beats, shape | manual |
+| `/obsidian-vault` | Search and manage Obsidian notes | Exception: npx, from Matt's repo, not in his plugin |
+| `/goals` | Goals, reflection, ONE THING | Personal |
+| `/claude-mem:mem-search` | Search past sessions | Owner of "did we solve this before" |
+| `/claude-mem:smart-explore` | Token-cheap AST code search | |
+| `/claude-mem:knowledge-agent`, `/claude-mem:timeline-report`, `/claude-mem:claude-code-plugin-release` | Knowledge bases, project timeline, plugin release | |
+| `/sentry:sentry-workflow` | Fix production issues with Sentry context | Owner of "fix this Sentry error" |
+| `/sentry:sentry-fix-issues`, `/sentry:sentry-code-review`, `/sentry:sentry-pr-code-review` | Manual variants: fix issues, resolve Sentry PR comments, Seer PR review | manual |
+| `/sentry:sentry-sdk-setup`, `/sentry:sentry-feature-setup` | Set up Sentry in any stack, or a specific feature | Owner of "add Sentry" |
+| `/sentry:sentry-instrumentation-guide`, `/sentry:sentry-create-alert`, `/sentry:sentry-setup-ai-monitoring`, `/sentry:sentry-otel-exporter-setup`, `/sentry:sentry-sdk-upgrade`, `/sentry:sentry-sdk-skill-creator` | Signals, alerts, AI monitoring, OTel, upgrades, SDK skill bundles | manual |
+| `/sentry:sentry-*-sdk` | Per-platform SDK setup (React, Next, Node, React Native, Python, Go, ...) | manual. Reached through sentry-sdk-setup |
+| `/figma:figma-design-to-code`, `/figma:figma-implement-motion`, `/figma:figma-swiftui`, `/figma:figma-code-connect` | Figma to code | Figma plugin; MCP prerequisites load themselves |
+| `/figma:figma-use`, `/figma:figma-use-figjam`, `/figma:figma-use-slides`, `/figma:figma-use-motion`, `/figma:figma-create-new-file`, `/figma:figma-generate-design`, `/figma:figma-generate-library`, `/figma:figma-generate-diagram`, `/figma:figma-shaders`, `/figma:figma-generative-plugins` | Code to Figma, writes into files | Figma plugin |
+| `/figma:video-interaction-mapper`, `/figma:generate-project-plan` | Screen recording to interaction map, FigJam plan board | Figma plugin |
+
+### Namesakes
+
+- `/prototype` (Emil, several variants behind a switcher) and `/mattpocock-skills:prototype` (Matt, throwaway prototype). Both kept.
+- `/code-review` (my Vortex command) and `/mattpocock-skills:code-review` (Matt, general). Both kept.
+- Jakub's better-* skills are invoked only as `/interfaces:better-*` (plugin); the map lists no bare copies.
+
+### Exceptions
+
+- `/obsidian-vault` comes through npx because Matt's plugin does not ship it.
+- `/sharqiewicz:*` is this repo loaded as a plugin (`sharqiewicz@skills-dir`); never install the same skills with npx.
+<!-- skill-map:end -->
 
 ---
 

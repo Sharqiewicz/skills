@@ -27,38 +27,47 @@ Two rules that keep the set honest:
 
 ## My skills
 
-The whole repo is one Claude Code plugin (`.claude-plugin/plugin.json`). On my machine it's symlinked as `~/.claude/skills/sharqiewicz`, which loads it as `sharqiewicz@skills-dir`, so every skill is invoked as `/sharqiewicz:<skill>` and always matches the repo. **Don't also install my skills with `npx skills add`**: that creates frozen copies that compete with the plugin. The per-skill `npx` commands below are for other people who want a single skill.
+The whole repo is one Claude Code plugin. Install it once and every skill below is invoked as `/sharqiewicz:<skill>`:
+
+```
+/plugin marketplace add sharqiewicz/skills
+/plugin install sharqiewicz@sharqiewicz
+```
+
+Want a single skill instead? `npx skills add sharqiewicz/skills/<skill>` (it gets a bare name, `/<skill>`, and updates with `npx skills update`). **Never do both for the same skill**: an npx copy and the plugin copy both load and compete.
+
+On my own machine the repo is symlinked as `~/.claude/skills/sharqiewicz`, which loads it as the `sharqiewicz@skills-dir` plugin, so every edit here is live without reinstalling. Don't delete that symlink.
 
 ### find — search and propose
 
 **`find-animations`** — sweep a **web** UI for moments that don't animate but should, and reject everything that shouldn't. Read-only: it proposes motion with exact curves and durations, it doesn't implement. Built on Emil Kowalski's ["You Don't Need Animations"](https://emilkowal.ski/ui/you-dont-need-animations) — a filter as much as a finder, with a four-question gate (frequency, purpose, speed, function), a required "rejected candidates" section, and a hard cap of 5–7 suggestions.
 
 ```
-/find-animations
+/sharqiewicz:find-animations
 ```
 
 **`find-animations-mobile`** — the same skill for **React Native + Expo on iOS**. Adds the mobile premise that iOS already animates most of what matters: a system-owned table (native-stack pushes, edge-swipe back, sheet detents, tab switches, `RefreshControl`, native alerts) that is rejected before the gate, a UI-thread test as part of the function question, Reanimated/gesture-handler recipes with exact `dampingRatio` + `duration` configs, `expo-haptics` as a co-channel, and a mandatory Reduce Motion check (RN doesn't suppress motion automatically). Pairs with `rules-apple-mobile`.
 
 ```
-/find-animations-mobile
+/sharqiewicz:find-animations-mobile
 ```
 
 **`find-library`** — a lookup skill for **web**: name a task, get one library. Curated and opinionated, covering UI primitives (base-ui, shadcn/ui, cmdk, Sonner), motion (motion, NumberFlow), data display (TanStack Table, recharts, Tiptap), interaction (dnd kit, Virtuoso), state & styling (zustand, TanStack Query, nuqs, clsx/cva/tailwind-merge), forms (react-hook-form + zod), backend (Drizzle, Better Auth, Resend, Trigger.dev), dates (Temporal over date-fns), and tooling (Vite, Vitest, Playwright, Biome). Includes a `decisions.md` for the contested calls and a "common mismatches" list that catches `useEffect`+`fetch`, filter state outside the URL, and dayjs in greenfield code. UI spine adapted from [Emil Kowalski's pick-ui-library](https://github.com/emilkowalski/skills/blob/main/skills/pick-ui-library/SKILL.md).
 
 ```
-/find-library
+/sharqiewicz:find-library
 ```
 
 **`find-library-mobile`** — the same skill for **React Native + Expo on iOS**. Covers foundation (Expo Router, native-stack, safe-area-context), lists (FlashList v2, Legend List), sheets (`formSheet` before a sheet library, `@gorhom/bottom-sheet` when it's earned), styling (Unistyles 3 vs. NativeWind), motion (Reanimated, Moti, gesture-handler, expo-haptics), the four-way storage split (SecureStore / MMKV / expo-sqlite / AsyncStorage), keyboard (`react-native-keyboard-controller`), device capabilities, and EAS/Sentry/Maestro. Carries two extra biases: prefer the Expo SDK module, and prefer native-backed over hand-rolled JS — so several answers are deliberately *"no library"*. Pairs with `rules-apple-mobile`.
 
 ```
-/find-library-mobile
+/sharqiewicz:find-library-mobile
 ```
 
-**`find-skill`** — ask which installed skill fits a job: `/sharqiewicz:find-skill <what you want to do>`. Answers with exactly one skill to use, up to two complements, and the likely wrong picks (namesakes, web vs mobile twins, skills that lost an overlap), each with its exact namespaced command. Reads the curated `find-skill/map.md` plus a live scan of everything installed (`scan.py`), flags unmapped skills, and falls back to Vercel's `/find-skills` when nothing installed fits. Read-only and manual-only.
+**`find-skill`** — ask which installed skill fits a job, e.g. `/sharqiewicz:find-skill animate a bottom sheet on iPhone`. Answers with exactly one skill to use, up to two complements, and the likely wrong picks (namesakes, web vs mobile twins, skills that lost an overlap), each with its exact namespaced command. Reads the curated `find-skill/map.md` plus a live scan of everything installed (`scan.py`), flags unmapped skills, and falls back to Vercel's `/find-skills` when nothing installed fits. Read-only and manual-only.
 
 ```
-/find-skill
+/sharqiewicz:find-skill
 ```
 
 ### fix — diagnose and repair
@@ -66,7 +75,7 @@ The whole repo is one Claude Code plugin (`.claude-plugin/plugin.json`). On my m
 **`fix-z-index`** — diagnostic decision tree for z-index, stacking context, and overlay bugs. Almost every "z-index doesn't work" issue traces to one of five root causes encoded in the tree.
 
 ```
-/fix-z-index
+/sharqiewicz:fix-z-index
 ```
 
 ### rules — normative reference
@@ -74,31 +83,31 @@ The whole repo is one Claude Code plugin (`.claude-plugin/plugin.json`). On my m
 **`rules-apple`** — Apple's Human Interface Guidelines translated for the web (CSS/HTML/JS/React), for frontend and design engineers. Complete standalone skill covering foundations (color, dark mode, materials/translucency, typography, layout, accessibility, RTL, writing), patterns (onboarding, loading/skeletons, feedback, modality, inline validation, delayed sign-in, search, settings), components (buttons, sheets, popovers, alerts, toggles, tab bars, toolbars, sidebars…), inputs (gestures, keyboard, pointer/hover, focus), motion (springs, velocity, interruptibility, reduced-motion), and web-relevant Apple technologies (Sign in with Apple, Apple Pay on the Web). Every rule works as build guidance and as a review check.
 
 ```
-/rules-apple
+/sharqiewicz:rules-apple
 ```
 
 **`rules-apple-mobile`** — Apple's Human Interface Guidelines for iPhone/iOS, translated for React Native + Expo. Complete standalone skill for building native iOS apps: navigation (React Navigation native-stack, large titles, edge-swipe back), tab bars, sheets & detents, alerts/action sheets, forms, lists (FlatList/FlashList, swipe-to-delete, pull-to-refresh), safe areas & Dynamic Island, Dynamic Type, dark mode, SF Symbols, gestures (gesture-handler), motion (reanimated), haptics, permissions, push notifications, and the App Store review requirements that block release (Sign in with Apple, account deletion, ATT). Every rule = Apple HIG rule + the exact RN/Expo API + the common RN mistake.
 
 ```
-/rules-apple-mobile
+/sharqiewicz:rules-apple-mobile
 ```
 
 **`rules-react-state`** — expert guidance for React state management: Zustand, React Query, React Context, and XState. Categorises state as server, global client, injected, or event-driven, then picks the right tool for each.
 
 ```
-npx skills add sharqiewicz/skills/rules-react-state
+/sharqiewicz:rules-react-state
 ```
 
 **`rules-git`** — team git workflow: branching strategy, commit discipline, rebase/merge rules, tag management, configuration.
 
 ```
-npx skills add sharqiewicz/skills/rules-git
+/sharqiewicz:rules-git
 ```
 
 **`rules-web-security`** — frontend and full-stack web security for React, Next.js and TypeScript. Covers XSS sinks, CSP and security headers, CORS, postMessage and WebSocket, CSRF, cookies and sessions, JWT and OAuth/PKCE, and secrets leaked to the browser. Distilled from Securitum's *Bezpieczeństwo aplikacji webowych* (frontend chapters) and checked against current OWASP and MDN guidance. Every rule works as build guidance and as a review check.
 
 ```
-npx skills add sharqiewicz/skills/rules-web-security
+/sharqiewicz:rules-web-security
 ```
 
 ### review — audit against a standard
@@ -106,19 +115,19 @@ npx skills add sharqiewicz/skills/rules-web-security
 **`review-cognitive-load`** — reviews code for extraneous complexity — the kind caused by how code is written, not by the inherent difficulty of the problem — and suggests concrete simplifications.
 
 ```
-npx skills add sharqiewicz/skills/review-cognitive-load
+/sharqiewicz:review-cognitive-load
 ```
 
 **`review-effects`** — detects misused `useEffect` hooks and replaces each with the correct React pattern, based on React's "You Might Not Need an Effect" guidance.
 
 ```
-npx skills add sharqiewicz/skills/review-effects
+/sharqiewicz:review-effects
 ```
 
 **`review-worst-case`** — tries to break what you just built. Maps where user data enters and where it's displayed, then runs worst-case payloads against the local app: very long names, odd emails, emoji/RTL/Zalgo, 10k rows, zero rows, double submits, Dynamic Type XXL on the smallest iPhone, and case-insensitive duplicates in the DB. Returns a severity-ranked break report with evidence, layer mismatches (UI vs validator vs DB limits) and a cleanup command for seeded data. It never edits source and refuses prod targets unless you confirm them. Pairs with `harden` for the fixes.
 
 ```
-npx skills add sharqiewicz/skills/review-worst-case
+/sharqiewicz:review-worst-case
 ```
 
 ### make — produce an artifact
@@ -126,30 +135,30 @@ npx skills add sharqiewicz/skills/review-worst-case
 **`make-skill`** — scaffolds a new skill from scratch, or audits an existing one against the canonical `SKILL.md` structure and fixes the gaps.
 
 ```
-npx skills add sharqiewicz/skills/make-skill
+/sharqiewicz:make-skill
 ```
 
 **`make-commit-plan`** — inspects the working tree and proposes how to stage and commit it: logical commit groups, exact `git add` commands (with `-p` hunks when a file spans two commits), and Conventional Commits messages. Runs a risk scan for secrets, build artifacts, and debug leftovers first. Read-only by design — it never runs `git add` or `git commit`; you copy the plan and press the button. Pairs with `rules-git`.
 
 ```
-npx skills add sharqiewicz/skills/make-commit-plan
+/sharqiewicz:make-commit-plan
 ```
 
 **`make-ticket`** — turns ideas, conversations, and plans into structured, testable work. Three flows: draft a single GitHub Issue in User Story format with Definition of Ready/Done; synthesize the current conversation into a PRD; break a plan or PRD into independently-grabbable tracer-bullet issues.
 
 ```
-npx skills add sharqiewicz/skills/make-ticket
+/sharqiewicz:make-ticket
 ```
 
 **`make-skill-map`** — keeps the skill map current. Finds installed skills the map doesn't mention yet and entries for skills that are gone, proposes a lane and owner for each, shows the diff, and only after approval writes `find-skill/map.md` and regenerates the Skill map section of this README. Depends on `find-skill/scan.py`. Manual-only.
 
 ```
-/make-skill-map
+/sharqiewicz:make-skill-map
 ```
 
 ### In progress
 
-Not yet installed — see `in-progress/`.
+Drafts in `in-progress/` (gitignored, not in the plugin). Older versions of two of them are installed on my machine as plain folders: `rules-design-engineering` as `/emil-design-engineering` and `rules-motion-layout` as `/motion-layout-animations`.
 
 - **`rules-design-engineering`** — design engineering principles for polished, accessible, performant web interfaces: animation, forms, touch, color, typography, audio feedback, accessibility, Tailwind state cascading.
 - **`rules-motion-layout`** — Motion (Framer Motion successor) layout animations: `layout`, `layoutId`, shared element transitions, `AnimatePresence`, `LayoutGroup`, scale correction.
@@ -207,7 +216,7 @@ Maintained by `/sharqiewicz:make-skill-map`, read by `/sharqiewicz:find-skill`. 
 | `/make-interfaces-feel-better` | Older version of better-ui | Loses to `/interfaces:better-ui` |
 | `/oklch-skill` | OKLCH conversions, palettes, Tailwind v4 theming | Loses to `/interfaces:better-colors` |
 | `/emil-design-eng` | Emil's philosophy on polish and invisible details | Taste reference; complements better-ui |
-| `/emil-design-engineering` | Design engineering rules for forms, touch, performance | animations.dev folder copy; overlaps emil-design-eng |
+| `/emil-design-engineering` | Design engineering rules for forms, touch, performance | Older installed copy of my draft `in-progress/rules-design-engineering`; overlaps emil-design-eng |
 | `/sharqiewicz:rules-apple` | Apple HIG translated to web CSS/HTML/React | Web sibling of rules-apple-mobile |
 | `/sharqiewicz:rules-apple-mobile` | Apple HIG for React Native + Expo iOS | Mobile sibling of rules-apple |
 | `/sharqiewicz:find-library` | Pick one library for a web task (React, Next, Tailwind) | manual. Owner of "which library". Overlaps `/pick-ui-library` |
@@ -238,7 +247,7 @@ Maintained by `/sharqiewicz:make-skill-map`, read by `/sharqiewicz:find-skill`. 
 | `/animation-vocabulary` | Name a motion effect from a vague description | Owner of motion terms. General design terms: `/vocabulary` |
 | `/css-animations` | CSS-only transitions, keyframes, transforms | |
 | `/motion-react` | Motion for React (motion/react) | |
-| `/motion-layout-animations` | layout, layoutId, AnimatePresence, shared elements | Owner of layout animation inside Motion |
+| `/motion-layout-animations` | layout, layoutId, AnimatePresence, shared elements | Owner of layout animation inside Motion. Older installed copy of my draft `in-progress/rules-motion-layout` |
 | `/scroll-animations` | Scroll-triggered reveals and scroll-driven animation | |
 | `/gesture-ui` | Drag, swipe, sheets that track the finger | Web-first; principles transfer to mobile |
 | `/motion-brief` | Interview me about an animation before building | Plan-like but motion-specific, so it lives here |
@@ -334,13 +343,13 @@ Maintained by `/sharqiewicz:make-skill-map`, read by `/sharqiewicz:find-skill`. 
 
 ### React
 
-**React Doctor** — https://www.react.doctor/
+**React Doctor** — diagnoses and fixes React codebase health: performance, correctness, architecture. https://www.react.doctor/
 
 ```
-npx react-doctor@latest
+npx skills add millionco/react-doctor
 ```
 
-**Vercel skills**
+**Vercel skills** (not installed on my machine; worth a look)
 
 ```
 npx skills add vercel-labs/agent-skills
@@ -352,7 +361,7 @@ npx skills add vercel-labs/agent-skills
 
 ### Design engineering
 
-**Web interface guidelines** — review UI code for Web Interface Guidelines compliance:
+**Web interface guidelines** — review UI code for Web Interface Guidelines compliance. I use it as a personal command (`~/.claude/commands/web-interface-guidelines.md`); the skill version ships in Vercel's set:
 
 - [https://github.com/vercel-labs/agent-skills/blob/main/skills/web-design-guidelines](https://github.com/vercel-labs/agent-skills/blob/main/skills/web-design-guidelines)
 
@@ -375,7 +384,7 @@ npx skills add vercel-labs/agent-skills
 npx skills add jakubkrehel/oklch-skill
 ```
 
-**Impeccable** — deep design knowledge in one skill with 24 commands (`/impeccable polish`, `/impeccable audit`, …):
+**Impeccable** — deep design knowledge in one skill with 24 commands (`/impeccable:impeccable polish`, `/impeccable:impeccable audit`, …):
 
 - [https://github.com/pbakaus/impeccable](https://github.com/pbakaus/impeccable)
 
@@ -394,6 +403,12 @@ npx skills add index-how/vocabulary
 
 ```
 npx skills add shadcn/ui
+```
+
+**userinterface-wiki** — UI/UX best-practice checks reported by file and line; a second opinion next to the better-* set.
+
+```
+npx skills add raphaelsalaja/userinterface-wiki
 ```
 
 ### Motion
@@ -441,9 +456,36 @@ git clone --depth 1 https://github.com/AgriciDaniel/claude-seo.git && bash claud
 npx skills add mattpocock/skills/obsidian-vault
 ```
 
+**find-skills** (Vercel) — searches skills.sh for skills I don't have yet. `/sharqiewicz:find-skill` hands off to it when nothing installed fits.
+
+```
+npx skills add vercel-labs/skills --skill find-skills
+```
+
+**Sentry** — fix production issues with Sentry context, set up SDKs, alerts and AI monitoring (invoke as `/sentry:<skill>`).
+
+```
+/plugin marketplace add getsentry/plugin-claude
+/plugin install sentry@sentry-plugin-marketplace
+```
+
+**Figma** — design to code and code to Figma (invoke as `/figma:<skill>`).
+
+```
+/plugin install figma@claude-plugins-official
+```
+
+**claude-mem** — persistent memory across sessions: search past work, plan and execute phased plans (invoke as `/claude-mem:<skill>`).
+
+```
+/plugin marketplace add thedotmack/claude-mem
+/plugin install claude-mem@thedotmack
+```
+
 ### Keeping external skills up to date
 
-- **Plugins** (Impeccable, Matt Pocock, Jakub, shadcn improve): third-party marketplaces don't auto-update by default. Turn it on per marketplace in `/plugin` → Marketplaces, or run `claude plugin update <plugin>`.
-- **npx skills** (Emil, OKLCH, vocabulary, shadcn/ui, obsidian-vault): `npx skills update`. Skip the names that animations.dev overwrote.
+- **Plugins** (Impeccable, Matt Pocock, Jakub, shadcn improve, Sentry, Figma, claude-mem, and this repo for other people): third-party marketplaces don't auto-update by default. Turn it on per marketplace in `/plugin` → Marketplaces, or run `claude plugin update <plugin>`.
+- **npx skills** (Emil, OKLCH, vocabulary, shadcn/ui, React Doctor, userinterface-wiki, find-skills, obsidian-vault): `npx skills update`. Skip the names that animations.dev overwrote.
 - **Script** (SEO): rerun the claude-seo install script.
+- **Folders** (animations.dev): rerun its installer with your token.
 - **Never install the same set through two channels.** A plugin copy and an npx copy of one skill both load and compete.

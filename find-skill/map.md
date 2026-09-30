@@ -48,7 +48,7 @@ Maintained by `/sharqiewicz:make-skill-map`, read by `/sharqiewicz:find-skill`. 
 | `/make-interfaces-feel-better` | Older version of better-ui | Loses to `/interfaces:better-ui` <!-- Jakub's pre-plugin copy; candidate for removal --> |
 | `/oklch-skill` | OKLCH conversions, palettes, Tailwind v4 theming | Loses to `/interfaces:better-colors` |
 | `/emil-design-eng` | Emil's philosophy on polish and invisible details | Taste reference; complements better-ui |
-| `/emil-design-engineering` | Design engineering rules for forms, touch, performance | animations.dev folder copy; overlaps emil-design-eng <!-- keep both for now, they are different authors' phrasing of the same set; emil-design-eng is the npx-tracked one --> |
+| `/emil-design-engineering` | Design engineering rules for forms, touch, performance | Older installed copy of my draft `in-progress/rules-design-engineering`; overlaps emil-design-eng <!-- keep until the draft ships as /sharqiewicz:rules-design-engineering, then remove this folder --> |
 | `/sharqiewicz:rules-apple` | Apple HIG translated to web CSS/HTML/React | Web sibling of rules-apple-mobile |
 | `/sharqiewicz:rules-apple-mobile` | Apple HIG for React Native + Expo iOS | Mobile sibling of rules-apple |
 | `/sharqiewicz:find-library` | Pick one library for a web task (React, Next, Tailwind) | manual. Owner of "which library". Overlaps `/pick-ui-library` |
@@ -79,7 +79,7 @@ Maintained by `/sharqiewicz:make-skill-map`, read by `/sharqiewicz:find-skill`. 
 | `/animation-vocabulary` | Name a motion effect from a vague description | Owner of motion terms. General design terms: `/vocabulary` |
 | `/css-animations` | CSS-only transitions, keyframes, transforms | |
 | `/motion-react` | Motion for React (motion/react) | |
-| `/motion-layout-animations` | layout, layoutId, AnimatePresence, shared elements | Owner of layout animation inside Motion |
+| `/motion-layout-animations` | layout, layoutId, AnimatePresence, shared elements | Owner of layout animation inside Motion. Older installed copy of my draft `in-progress/rules-motion-layout` |
 | `/scroll-animations` | Scroll-triggered reveals and scroll-driven animation | |
 | `/gesture-ui` | Drag, swipe, sheets that track the finger | Web-first; principles transfer to mobile |
 | `/motion-brief` | Interview me about an animation before building | Plan-like but motion-specific, so it lives here |

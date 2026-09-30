@@ -1,0 +1,15 @@
+{
+  "name": "sharqiewicz",
+  "description": "Kacper Szarkiewicz's personal Claude Code skills.",
+  "owner": {
+    "name": "Kacper Szarkiewicz",
+    "url": "https://github.com/sharqiewicz"
+  },
+  "plugins": [
+    {
+      "name": "sharqiewicz",
+      "source": "./",
+      "description": "Personal skill collection named <verb>-<object>[-mobile]: find, fix, rules, review, make."
+    }
+  ]
+}

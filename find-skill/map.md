@@ -84,6 +84,7 @@ Maintained by `/sharqiewicz:make-skill-map`, read by `/sharqiewicz:find-skill`. 
 | `/animation-accessibility` | prefers-reduced-motion variants | Reference for reduced motion |
 | `/animation-vocabulary` | Name a motion effect from a vague description | Owner of motion terms. General design terms: `/vocabulary` |
 | `/css-animations` | CSS-only transitions, keyframes, transforms | |
+| `/sharqiewicz:rules-easing` | 18 cubic-bezier easing tokens, which to pick, RN `Easing.bezier` | Reference for curves. Web and mobile |
 | `/motion-react` | Motion for React (motion/react) | |
 | `/scroll-animations` | Scroll-triggered reveals and scroll-driven animation | |
 | `/gesture-ui` | Drag, swipe, sheets that track the finger | Web. Mobile sibling: `/sharqiewicz:rules-gestures-mobile` |

@@ -148,6 +148,12 @@ On my own machine the repo is symlinked as `~/.claude/skills/sharqiewicz`, which
 /sharqiewicz:rules-animation-performance-mobile
 ```
 
+**`rules-easing`** — the 18 Penner easing curves (quad, cubic, quart, quint, expo, circ × in, out, in-out) as CSS custom properties, plus the same curves as Reanimated `Easing.bezier` for React Native. Says which direction and strength to pick for enter, exit, move and hover, and when to use a spring instead.
+
+```
+/sharqiewicz:rules-easing
+```
+
 **`rules-react-state`** — expert guidance for React state management: Zustand, React Query, React Context, and XState. Categorises state as server, global client, injected, or event-driven, then picks the right tool for each.
 
 ```
@@ -338,6 +344,7 @@ Maintained by `/sharqiewicz:make-skill-map`, read by `/sharqiewicz:find-skill`. 
 | `/animation-accessibility` | prefers-reduced-motion variants | Reference for reduced motion |
 | `/animation-vocabulary` | Name a motion effect from a vague description | Owner of motion terms. General design terms: `/vocabulary` |
 | `/css-animations` | CSS-only transitions, keyframes, transforms | |
+| `/sharqiewicz:rules-easing` | 18 cubic-bezier easing tokens, which to pick, RN `Easing.bezier` | Reference for curves. Web and mobile |
 | `/motion-react` | Motion for React (motion/react) | |
 | `/scroll-animations` | Scroll-triggered reveals and scroll-driven animation | |
 | `/gesture-ui` | Drag, swipe, sheets that track the finger | Web. Mobile sibling: `/sharqiewicz:rules-gestures-mobile` |

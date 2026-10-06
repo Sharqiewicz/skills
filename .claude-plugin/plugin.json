@@ -41,6 +41,7 @@
     "./rules-apple-mobile",
     "./rules-color-mobile",
     "./rules-design-engineering-mobile",
+    "./rules-easing",
     "./rules-gestures-mobile",
     "./rules-git",
     "./rules-layout-mobile",

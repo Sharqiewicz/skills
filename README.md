@@ -248,6 +248,12 @@ On my own machine the repo is symlinked as `~/.claude/skills/sharqiewicz`, which
 /sharqiewicz:make-prototype-mobile
 ```
 
+**`make-fidgetable`** — sweeps a web or **React Native** app (or a given scope) for elements that could be more *fidgetable* (physical, squishy, something to mess around with), *expansive* (builds up over time) and *inventive* (never seen before). Scores each candidate on those three lenses, gates it by frequency so the 100+/day paths stay quiet, then prototypes the top 1–3 without committing. Each run appends to a `.fidget/ledger.md` in the app and adds new patterns to the skill's own `inventions.md`.
+
+```
+/sharqiewicz:make-fidgetable
+```
+
 ### In progress
 
 Drafts in `in-progress/` (gitignored, not in the plugin).
@@ -336,6 +342,7 @@ Maintained by `/sharqiewicz:make-skill-map`, read by `/sharqiewicz:find-skill`. 
 | `/sharqiewicz:make-animation-plan-mobile` | Audit an app's motion, write plans for cheaper models | manual. Mobile sibling of `/improve-animations` |
 | `/sharqiewicz:make-motion-brief-mobile` | Interview me about a mobile animation before building | manual. Mobile sibling of `/motion-brief` |
 | `/sharqiewicz:make-prototype-mobile` | Several variants behind a switcher on an Expo dev screen | manual. Mobile sibling of `/prototype` |
+| `/sharqiewicz:make-fidgetable` | Find spots that could be more playful, cumulative and novel; prototype the best 1–3 | Web and mobile. Owner of "make it fun to mess with". Keeps `.fidget/ledger.md` in the app |
 | `/find-animation-opportunities` | Find places that should animate on the web, reject the rest (Emil) | manual. Owner of "where should I add motion" on the web. Mobile sibling: `/sharqiewicz:find-animations-mobile` |
 | `/review-animations` | Review animation code against the animations.dev bar | manual. Owner of "review my animations" |
 | `/improve-animations` | Audit motion and write implementation plans | manual. Plans for other agents; review-animations is the findings report |

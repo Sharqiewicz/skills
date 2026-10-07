@@ -25,6 +25,7 @@
     "./fix-z-index",
     "./make-animation-plan-mobile",
     "./make-commit-plan",
+    "./make-fidgetable",
     "./make-motion-brief-mobile",
     "./make-prototype-mobile",
     "./make-skill",
